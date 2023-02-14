@@ -10,7 +10,8 @@ import { AddAddressComponent } from './add-address/add-address.component';
   declarations: [
     AppComponent,
     SideNavComponent,
-    AddAddressComponent
+    AddAddressComponent,
+    AppComponent,
   ],
   imports: [
     BrowserModule,
