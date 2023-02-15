@@ -1,14 +1,47 @@
 <div class="body">
-  This is a test
+  
   <h1>Registration Form</h1>
 
   <div class="form-container">
-    <form>
-        <label class="nameLabel" for="name"> Name</label>
-        <input type="text" class="firstName">  <input type="text" class="lastName"> 
-    </form>
-  </div>
-  <p class="newuser">
-    Don't have an account? <a href="google.com">register here.</a>
-  </p>
+      
+        <div class="regEnhPic">
+          <img src="../../assets/FrontEnd Pictures/registerpicture.png" alt="RegisterEnhancer" class="registpic">
+        </div>
+        <div>
+        <form class="inputHolder">
+          <div class="nameDiv">
+            <label class="nameLabel" for="name"> Name</label> <br> 
+            <input type="text" class="firstName" placeholder="Enter First Name" /> 
+            
+            <input type="text" class="lastName" placeholder="Enter Last Name" />
+          </div>
+          <div>
+            <label class="emailLabel" for="email"> Email</label> <br>
+            <input type="email" class="email" placeholder="Enter your email address" />
+          </div>
+          <div>
+            <label class="phoneLabel" for="phone"> Phone</label> <br>
+            <input type="number" class="number" placeholder="Preferred contact number?" />
+          </div>
+          <div>
+            <label class="passLabel" for="password"> Password</label> <br>
+            <input type="password" class="password" placeholder="Enter your password here" />
+          </div>
+          <div class="fileUpload">
+            <img src="../../assets/FrontEnd Pictures/Profilelogo.png" alt="ProfileImage" class="profileImage"> <br>
+            <button class="imageSubmit"> Choose Image</button> 
+          </div>
+          <div class="formSubmitdiv">
+        <button type="submit" class="formSubmit"> Register</button>
+        </div>
+
+    
+        </form>
+
+      </div>
+
+      </div>
+      <p class="newuser">
+        Don't have an account? <a href="google.com">Register here.</a>
+      </p>
 </div>

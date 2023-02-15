@@ -6,29 +6,46 @@
     
     <div>
         <h1 class="header"> <i> LOGIN </i></h1>
-        <form class="loginForm">
+        <form class="loginForm" [formGroup]="userLogin">
             
             <div class="form_div">
                 <!-- Labels to be editted  -->
                 <div>
                     <!-- <label class="label" for="email">Email</label> -->
-                    <input type="email" id="email" placeholder="Enter email here">
-                </div>
+                    <input type="email" id="email" formControlName="email"  placeholder="Enter email here">
+                        <div class="validator" *ngIf="userLogin.get('email').touched && userLogin.get('email').invalid">
+                            <span *ngIf="userLogin.get('email').hasError('required')">Email is required</span>
+                            <span *ngIf="userLogin.get('email').hasError('email')">Email is invalid</span>
+                        </div>                
+                    </div>
                 <div>
                     <!-- <label class="label" for="password">Password</label> -->
-                    <input type="password" id="password" placeholder="Enter password here">
+                    <input type="password" id="password" formControlName="password" placeholder="Enter password here">
+                    <div class="validator" *ngIf="userLogin.get('password').touched && userLogin.get('password').invalid">
+                        <div *ngIf="userLogin.get('password').hasError('required')">Password is required</div>
+                        <div *ngIf="userLogin.get('password').hasError('minlength')">Password must be at least 8 characters</div>
+                      </div>
+                    
                 </div>
                 <div>
-                    <button type="submit" class="btn" >Submit</button>
+                    
+                    <button type="submit" class="btn" [disabled]="userLogin.invalid"  >Submit</button>
                 </div>
                 <div>
                     <p class="newuser"> Don't have an account? <a href="google.com">register here.</a></p>
                 </div>
             </div>
+            
         </form>
         
     </div>
+    <div>
+    <re-captcha (resolved)="myCaptcha($event)"siteKey=""></re-captcha>
     </div>
+    </div>
+
+   
+
     <!-- <svg class="triangleright">
     
     </svg>
