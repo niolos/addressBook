@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './frontend/user/user.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AddAddressComponent } from './add-address/add-address.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AddAddressComponent } from './add-address/add-address.component';
     AddAddressComponent,
     AppComponent,
     AppComponent,
-    UserComponent
+    UserComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,
