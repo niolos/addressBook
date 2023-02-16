@@ -11,7 +11,7 @@ import { Address } from '../Models/address';
 })
 export class AddressService {
 
-  private REST_API_URL = environment.API_URL+'/subscribers'
+  private REST_API_URL = environment.API_URL+'/address'
 
   private HTTP_HEADER = {
     headers: new HttpHeaders({'content-type': 'application/json'})
