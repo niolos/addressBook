@@ -13,6 +13,8 @@
 
 .container h1{
     color: #00057D;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
 }
 
 .container i{
@@ -52,6 +54,8 @@
     display: flex;
     align-items: center;
     padding-left: 0.4rem;
+    color:#00047d;
+    column-gap: 0.7rem;
 }
 
 .container ul li:hover{
@@ -59,7 +63,7 @@
     cursor: pointer;
 }
 
-.container ul li:hover i{
+.container ul li:hover i, .container ul li:hover h2{
     color:white
 }
 
@@ -67,7 +71,17 @@
     outline: 1px solid #00047d79;
 }
 
+
 .container ul li i{
     color:#00047d;
     font-size: 1.2rem;
+}
+
+.container ul li h2{
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.container img{
+    width:100%
 }

@@ -7,6 +7,9 @@ import { UserComponent } from './frontend/user/user.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AddAddressComponent } from './add-address/add-address.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 
@@ -19,12 +22,16 @@ import { RecaptchaModule } from 'ng-recaptcha';
     AppComponent,
     UserComponent,
     RegistrationFormComponent,
+    UserComponent,
+    UserProfileComponent,
     DisplayAddressComponent,
  
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     RecaptchaModule,

@@ -1,7 +1,20 @@
 <div class="main">
     <app-side-nav></app-side-nav>
-    <div class="content">
+    <form class="content" [formGroup]="createAddress">
         <h1>Add Address</h1>
         <h2>Street</h2>
-    </div>
+        <input type="text" name="" id="" placeholder="Address 1" formControlName="address1" required>
+        <input type="text" placeholder="Address 2" formControlName="address2" required>
+        <h2>City</h2>
+        <input type="text" placeholder="City" formControlName="city" required>
+        <h2>Parish</h2>
+        <select formControlName="parish" required>
+            <option value="St. Catherine">St. Catherine</option>
+            <option value="Kingston">Kingston</option>
+            <option value="St. Ann">St. Ann</option>
+        </select>
+        <div class="buttonCon">
+            <button type="submit" (click)="newAddress()"> Add</button>
+        </div>
+    </form>
 </div>
