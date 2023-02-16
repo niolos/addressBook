@@ -7,7 +7,7 @@
     height: 100vh;
     width: 100%;
     position: relative;
-    overflow: hidden;
+    overflow: scroll;
     background-image: linear-gradient(495deg, transparent 0%, transparent 30%,rgba(229, 127, 23,0.6) 30%, rgba(229, 127, 23,0.6) 33%,transparent 33%, transparent 64%,rgba(235, 177, 39,0.6) 64%, rgba(235, 177, 39,0.6) 100%),linear-gradient(405deg, transparent 0%, transparent 39%,rgb(229, 127, 23) 39%, rgb(229, 127, 23) 76%,rgb(232, 152, 31) 76%, rgb(232, 152, 31) 80%,transparent 80%, transparent 100%),linear-gradient(450deg, rgb(255,255,255),rgb(255,255,255));
 }
 .newuser {
@@ -22,7 +22,9 @@
    /* position: absolute; */
 width: 57%;
 margin-left: 20%;
-margin-top: 2%;
+margin-top: 0.1%;
+height: auto;
+height: 570px;
 
 border-radius: 28px;
 
@@ -33,17 +35,18 @@ h1 {
 }
 
 .regEnhPic {
-    height: 460px;
+    /* height: 460px; */
     /* border: 4px solid  pink; */
-    overflow:hidden;
+    /* overflow:auto; */
     width:200px;
+    height:auto;
     margin-top: 5px;
     border-top-left-radius: 28px;
     border-bottom-left-radius: 28px;
 }
   .registpic {
 /* height: 75vh; */
-    height:465px;
+    height:100%;
     width: 100%;
   }
 
@@ -53,7 +56,9 @@ h1 {
     width:500px;
     max-width: 700px;
     /* flex:0 1 500px; */
-    height: 460px;
+    height: auto;
+    height: 565px;
+    
    border-top-right-radius: 28px;
    border-bottom-right-radius: 28px;
    box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2);
@@ -68,15 +73,15 @@ h1 {
   }
 
   input[type="email"] { 
-    width: 350px;
+    width: 300px;
   }
   input[type="number"] { 
     /* width: 240px; */
-    width: 350px;
+    width: 300px;
   }
   input[type="password"] { 
     /* width: 240px; */
-    width: 350px;
+    width: 300px;
   }
 
 .inputHolder div {
@@ -125,6 +130,10 @@ padding: 0px;
     background-color: #DC4200;
     width: 100px;
 }
+
+.formSubmit:hover{
+  cursor: pointer;
+}
 .newuser{
     text-align: center;
 }
@@ -132,4 +141,20 @@ padding: 0px;
     text-align: center;
     padding: 5px;
     
+}
+
+.validator {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 12px;
+  padding: 0;
+  margin: 0;
+  
+}
+
+.nameval {
+  text-align: center;
+  margin-left: 40%;
+  
 }

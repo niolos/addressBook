@@ -2,6 +2,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: 'Inter', sans-serif;
 }
 
 .full {
@@ -19,12 +20,9 @@
 .full img{
   height:15%;
 }
-.logo {
-  top: 20%;
-  right: 50%;
-  position: absolute;
-  transform: translate(50%, -50%);
-}
+/* .logo {
+
+} */
 
 
 
@@ -39,6 +37,7 @@
   justify-content: center;
   align-items: center;
   height: 40%;
+  height: auto;
   border-radius: 25px;
   box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2);
 }
@@ -74,7 +73,7 @@ input::placeholder {
   border:none;
   background-size: 260%;
   color: white;
-  font-family: 'Inter', sans-serif;
+  /* font-family: 'Inter', sans-serif; */
   font-weight: bold;
 }
 .loginForm button:hover {
@@ -94,7 +93,10 @@ input::placeholder {
 .header {
   color: #dc420d;
   font-weight: bold;
+  font-size: 24px;
   font-family: 'Inter', sans-serif;
+  /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+
 }
 
 .triangleright {
@@ -128,4 +130,8 @@ input::placeholder {
   color: red;
   font-weight: bold;
   font-style: italic;
+  font-size: 8px;
+  padding: 0;
+  margin: 0;
+  
 }

@@ -8,31 +8,54 @@
           <img src="../../assets/FrontEnd Pictures/registerpicture.png" alt="RegisterEnhancer" class="registpic">
         </div>
         <div>
-        <form class="inputHolder">
+        <form class="inputHolder" [formGroup]="newUser"  (ngSubmit)="onSubmit()">
           <div class="nameDiv">
             <label class="nameLabel" for="name"> Name</label> <br> 
-            <input type="text" class="firstName" placeholder="Enter First Name" /> 
+            <input type="text" class="firstName" formControlName="frstName" placeholder="Enter First Name" /> 
             
-            <input type="text" class="lastName" placeholder="Enter Last Name" />
+            <input type="text" class="lastName" formControlName="lastName" placeholder="Enter Last Name" /> 
+            <span class="validator nameval" *ngIf="newUser.get('frstName').touched && newUser.get('frstName').invalid || newUser.get('lastName').touched && newUser.get('lastName').invalid">
+              <span *ngIf="newUser.get('frstName').hasError('required') || newUser.get('lastName').hasError('required')">Both names are required</span>
+          </span>
           </div>
           <div>
             <label class="emailLabel" for="email"> Email</label> <br>
-            <input type="email" class="email" placeholder="Enter your email address" />
+            <input type="email" id="email" class="email" formControlName="email" placeholder="Enter your email address" />
+            <span class="validator" *ngIf="newUser.get('email').touched && newUser.get('email').invalid">
+              <span *ngIf="newUser.get('email').hasError('required')">Email is required</span>
+              <span *ngIf="newUser.get('email').hasError('email')">Email is invalid</span>
+          </span>
+       
           </div>
           <div>
             <label class="phoneLabel" for="phone"> Phone</label> <br>
-            <input type="number" class="number" placeholder="Preferred contact number?" />
+            <input type="number" class="number" formControlName="phone" placeholder="Preferred contact number?" />
+            <span class="validator" *ngIf="newUser.get('phone').touched && newUser.get('phone').invalid">
+              <span *ngIf="newUser.get('phone').hasError('required')">Password is required</span>
+          </span>
           </div>
+          
           <div>
             <label class="passLabel" for="password"> Password</label> <br>
-            <input type="password" class="password" placeholder="Enter your password here" />
+            <input type="password" class="password" formControlName="password" placeholder="Enter your password here" />
+            <span class="validator" *ngIf="newUser.get('password').touched && newUser.get('password').invalid">
+              <span *ngIf="newUser.get('password').hasError('required')">Password is required</span>
+              <span *ngIf="newUser.get('password').hasError('minlength')">Password must be at least 8 characters                            
+              </span>
+          </span>
           </div>
+          <label for="confirmPassword">Confirm Password</label> <br>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password">
+        <span class ="validator" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+          <span *ngIf="confirmPassword.errors.required">Confirm Password is needed.</span>
+          <span *ngIf="password.value !== confirmPassword.value">Passwords do not match.</span>
+        </span>
           <div class="fileUpload">
             <img src="../../assets/FrontEnd Pictures/Profilelogo.png" alt="ProfileImage" class="profileImage"> <br>
             <button class="imageSubmit"> Choose Image</button> 
           </div>
           <div class="formSubmitdiv">
-        <button type="submit" class="formSubmit"> Register</button>
+        <button type="submit" class="formSubmit"  [disabled]="newUser.invalid"> Register</button>
         </div>
 
     
@@ -41,7 +64,7 @@
       </div>
 
       </div>
-      <p class="newuser">
-        Don't have an account? <a href="google.com">Register here.</a>
+      <p  class="newuser">
+        Already have an account? <a routerLink="">Sign in here.</a>
       </p>
 </div>
