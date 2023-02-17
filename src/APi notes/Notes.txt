@@ -1,0 +1,19 @@
+
+Below is link and RAW body for the posting new user
+
+Url Link route - [This uses POST]
+http://localhost:5000/api/v1/common/users?platform=web
+
+Raw Body
+{
+    "first_name": "Mally",
+    "last_name": "Willy",
+    "email": "mw@email.com",
+    "password":"password123",
+    "profile_image":"",
+    "mobile_number": "8760000000",
+    "home_number": "8760000001"
+}
+------------------------------------------------------------------------------------------------
+
+

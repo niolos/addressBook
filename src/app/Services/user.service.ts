@@ -4,13 +4,17 @@ import { Observable, of, Subscriber } from 'rxjs';
 import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Users } from '../Models/users';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private REST_API_URL = environment.API_URL+'/users'
+  // private REST_API_URL = environment.API_URL+'/users'
+  private REST_API_URL = environment.API_URL+'/api/v1/common';
+  // http://localhost:5000/api/v1/common/users?platform=web
 
   constructor(private http: HttpClient) { }
 
@@ -27,14 +31,22 @@ export class UserService {
       catchError(error => of([]))
     )
   }
-
+  
   createNewUser(user:Users):Observable<Users>{
-   return this.http.post<Users>(`${this.REST_API_URL}/create`, user, this.HTTP_HEADER).pipe(
+   return this.http.post<Users>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
     tap(newUser =>{
       console.log(`This User = ${newUser}`);
     }),
     catchError(error => of(new Users()))
    )
+  // createNewUser(user:Users):Observable<Users>{
+  //  return this.http.post<Users>(`${this.REST_API_URL}/create`, user, this.HTTP_HEADER).pipe(
+  //   tap(newUser =>{
+  //     console.log(`This User = ${newUser}`);
+  //   }),
+  //   catchError(error => of(new Users()))
+  //  )
+  // }
   }
 
   getUserId(id: string):Observable<Users| any>{
@@ -63,4 +75,9 @@ export class UserService {
       catchError(error=> of(new Users()))
     )
   }
+
+ 
+
+
 }
+
