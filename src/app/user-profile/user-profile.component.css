@@ -71,19 +71,24 @@ img{
 
 .content img{
     object-fit:contain;
-
 }
 
 
 
 .inputCon label{
     padding: 15px 30px;
-    background-color: #ff4500;
+    background: linear-gradient(to left,#002088, #002088, #ff4500, #ff4500);
     color:white;
     border-radius: 20px;
     cursor: pointer;
     box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.75);
+    background-size: 260%;
 
+}
+
+.inputCon label:hover{
+    background-position: right;
+    cursor: pointer;
 }
 
 .buttonCon{

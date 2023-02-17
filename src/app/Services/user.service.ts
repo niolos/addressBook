@@ -58,7 +58,7 @@ export class UserService {
   deleteUsers(id:string){
     return this.http.delete<Users>(`${this.REST_API_URL}/delete/${id}`, this.HTTP_HEADER).pipe(
       tap(deleteUsers=>{
-        console.log(`deleted User = ${deleteUsers.fName}`);
+        console.log(`deleted User = ${deleteUsers.first_name}`);
       }),
       catchError(error=> of(new Users()))
     )

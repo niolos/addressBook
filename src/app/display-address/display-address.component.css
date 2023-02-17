@@ -12,27 +12,28 @@
     flex-direction: column;
     width:78%;
     height:100vh;
-    padding: 2rem;
     row-gap: 1.3rem;
+    padding:3rem
 }
 
 .box {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    row-gap: 2rem;
     width: 100%;
-    
-    border: black 1px solid;
-
+    position: relative;
+    column-gap: 10%;
+    padding: 2rem;
 }
 .box>* {
     /* flex: 1 1 1  1600px; */
-    width: 250px;
+    padding: 0.3rem;
+    width: 26%;
     height: 250px;
-    margin: 15px;
-    border-radius: 19px;;
-    border-right: #00057D 3px solid;
-    border-bottom: #00057D 3px solid;
+    border-radius: 19px;
+    border-right: #00047d6c 2px solid;
+    border-bottom: #00047d6c 2px solid;
     background-color: #DBDBDB82;
     box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2);
     -webkit-box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2);
@@ -40,7 +41,11 @@
 }
 
 .boxStyle {
-    margin: 20px 5px 20px 6px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0.3rem;
+    row-gap: 0.6rem;
 
 }
 
@@ -50,12 +55,27 @@
 }
 
 i {
-    padding: 10px;
-    margin-left: 56px;
-    margin-right: 10px;
-    margin-top: 15px;
-    
-    border-radius: 50px;
+    height:3rem;
+    width:3rem;
+    text-align: center;
+    background-color: #c4c4c4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+    flex-direction: row;
+    font-size: 24px;
+    transition:all 0.5s ease
+}
+
+.iconCon{
+    width:100%;
+    position: relative;
+    display: flex;
+    height: 20%;
+    column-gap: 1rem;
+    justify-content: center;
+    align-items: center;
 }
 
 i:hover {
@@ -63,15 +83,37 @@ cursor: pointer;
 }
 
 .fa-pen {
-    color: #F45C06;
-    background-color: #4E4E4E;
+    color: #ff7b2f;
+}
+
+.fa-pen:hover {
+    color: #913500;
+}
+
+.fa-trash:hover {
+    color: #00057D;
 }
 
 .fa-trash {
-    color: #00057D;
-    background-color: gray;
+    color: #292fee;
 }
 
 h3 {
     color:#908E8E;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+
+}
+
+h2,h1{
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+
+.info{
+    width:100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.7rem;
 }

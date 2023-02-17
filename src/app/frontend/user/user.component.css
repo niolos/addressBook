@@ -39,7 +39,10 @@
   height: auto;
   border-radius: 25px;
   box-shadow: 3px 3px 10px 2px rgba(0,0,0,0.2);
+  padding:2rem
 }
+
+
 
 input::placeholder {
   color: #dc420d;
@@ -133,4 +136,8 @@ input::placeholder {
   padding: 0;
   margin: 0;
   
+}
+
+span{
+  font-size: 16px;
 }

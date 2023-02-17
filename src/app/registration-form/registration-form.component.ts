@@ -33,7 +33,19 @@ export class RegistrationFormComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-onSubmit() {
-  console.log("SUBMITED")
-}
+  onSubmit() {
+    console.log("SUBMITED")
+  }
+
+  userImage="/assets/FrontEnd Pictures/pexels-the-earthy-jay-15409085.jpg"
+
+  onselectFile(event:any){
+    if(event.target.files){
+      var check = new FileReader();
+      check.readAsDataURL(event.target.files[0]);
+      check.onload=(change:any)=>{
+        this.userImage=change.target.result;
+      }
+    }
+  }
 }
