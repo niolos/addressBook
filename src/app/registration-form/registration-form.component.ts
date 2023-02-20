@@ -64,16 +64,6 @@ export class RegistrationFormComponent implements OnInit {
     
   }
 
-  onselectFile(event:any){
-    this.selectedPic = event.target.files[0];
-    if(event.target.files){
-      var check = new FileReader();
-      check.readAsDataURL(this.selectedPic);
-      check.onload=(change:any)=>{
-        this.userImage=change.target.result;
-      }
-    }
-  }
  
 //To register a new user
   onSubmit() {
