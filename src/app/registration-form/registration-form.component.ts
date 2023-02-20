@@ -68,34 +68,34 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
  
-//To register a new user
-onSubmit() {
-  console.log("SUBMITED")
-  this.userService.createNewUser(this.newUser.value).subscribe((data:any) => {console.log(data)});
-  console.log(this.newUser.value);
-  // this.router.navigate(['']);
-}
-
-profilePicValidator(control: FormControl): { [key: string]: any } | null {
-  const file = control.value as File;
- 
-  // if (file.type.split('/')[0] !== 'image') {
-  //   return { 'invalidFileType': true };
-  // }
-  if (file.size > 10000000) {
-    return { 'fileTooLarge': true };
+  //To register a new user
+  onSubmit() {
+    console.log("SUBMITED")
+    this.userService.createNewUser(this.newUser.value).subscribe((data:any) => {console.log(data)});
+    console.log(this.newUser.value);
+    // this.router.navigate(['']);
   }
-  return null;
-}
 
-userImage="../../assets/FrontEnd Pictures/Profilelogo.png"
+  profilePicValidator(control: FormControl): { [key: string]: any } | null {
+    const file = control.value as File;
+  
+    // if (file.type.split('/')[0] !== 'image') {
+    //   return { 'invalidFileType': true };
+    // }
+    if (file.size > 10000000) {
+      return { 'fileTooLarge': true };
+    }
+    return null;
+  }
 
-passwordMatchValidator(fg: FormGroup) {
-  const password = fg.get('password')!.value;
-  const confirmPassword = fg.get('confirmPassword')!.value;
+  userImage="../../assets/FrontEnd Pictures/pexels-the-earthy-jay-15409085.jpg"
 
-  return password === confirmPassword ? null : { mismatch: true };
-}
+  passwordMatchValidator(fg: FormGroup) {
+    const password = fg.get('password')!.value;
+    const confirmPassword = fg.get('confirmPassword')!.value;
+
+    return password === confirmPassword ? null : { mismatch: true };
+  }
 
 
 }

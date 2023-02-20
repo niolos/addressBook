@@ -7,11 +7,11 @@
       <form class="inputHolder" [formGroup]="newUser"  (ngSubmit)="onSubmit()">
         <label for="name">Name</label>
         <div class="nameDiv">
-          <input type="text" class="firstName" formControlName="frstName" placeholder="Enter First Name" /> 
-          <input type="text" class="lastName" formControlName="lastName" placeholder="Enter Last Name" /> 
+          <input type="text" class="firstName" formControlName="first_name" placeholder="Enter First Name" /> 
+          <input type="text" class="lastName" formControlName="last_name" placeholder="Enter Last Name" /> 
         </div>
-        <span class="validator nameval" *ngIf="newUser.get('frstName').touched && newUser.get('frstName').invalid || newUser.get('lastName').touched && newUser.get('lastName').invalid">
-          <span *ngIf="newUser.get('frstName').hasError('required') || newUser.get('lastName').hasError('required')">Both names are required</span>
+        <span class="validator nameval" *ngIf="newUser.get('first_name').touched && newUser.get('first_name').invalid || newUser.get('last_name').touched && newUser.get('last_name').invalid">
+          <span *ngIf="newUser.get('frstName').hasError('required') || newUser.get('last_name').hasError('required')">Both names are required</span>
         </span>
           <label for="email">Email</label>
           <input type="email" id="email" class="email" formControlName="email" placeholder="Enter your email address" />
