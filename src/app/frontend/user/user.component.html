@@ -13,7 +13,7 @@
             <input type="password" id="password" placeholder="Enter password" formControlName="password">
             <span class="validator" *ngIf="userLogin.get('password').touched && userLogin.get('password').invalid">
                 <span *ngIf="userLogin.get('password').hasError('required')">Password is required</span>
-                <span *ngIf="userLogin.get('password').hasError('minlength')">Password must be at least 8 characters                            
+                <span *ngIf="userLogin.get('password').hasError('passwordTooShort')">Password must be at least 8 characters                            
                 </span>
             </span>
             <div [hidden]="myCaptcha">

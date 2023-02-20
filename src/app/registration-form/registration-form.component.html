@@ -20,12 +20,14 @@
             <span *ngIf="newUser.get('email').hasError('email')">Email is invalid</span>
           </span>
         <label for="phone">Phone Number</label>
-        <div>
-          <input type="number" class="number" formControlName="phone" placeholder="Preferred contact number?" />
-          <span class="validator" *ngIf="newUser.get('phone').touched && newUser.get('phone').invalid">
-            <span *ngIf="newUser.get('phone').hasError('required')">Password is required</span>
-        </span>
-        </div>
+          <input type="number" class="number" formControlName="mobile_number" placeholder="Cell Number" />
+            <span class="validator" *ngIf="newUser.get('mobile_number').touched && newUser.get('mobile_number').invalid">
+              <span *ngIf="newUser.get('mobile_number').hasError('required')">Contact No. is required</span>
+            </span>
+            <input type="number" class="number" formControlName="home_number" placeholder="Home Number" />
+            <span class="validator" *ngIf="newUser.get('home_number').touched && newUser.get('home_number').invalid">
+              <span *ngIf="newUser.get('home_number').hasError('required')">Contact No. is required</span>
+            </span>
         <div class="password">
           <label for="password">Password</label>
           <input type="password" class="password" formControlName="password" placeholder="Enter your password here" />

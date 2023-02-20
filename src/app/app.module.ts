@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { DisplayAddressComponent } from './display-address/display-address.component';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,17 @@ import { RecaptchaModule } from 'ng-recaptcha';
     FormsModule,
     RecaptchaModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: RECAPTCHA_SETTINGS,
+    //   useValue: {
+    //     siteKey: environment.recaptcha.siteKey,
+    //   } as RecaptchaSettings,
+    // },
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { AbstractControl, ValidationErrors, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
+import { asyncValidatorFn } from 'src/app/Services/asyncronous-validator.service';
+import { passwordLengthValidator } from 'src/app/Services/asyncronous-validator.service';
 
 @Component({
   selector: 'app-user',
@@ -20,8 +23,8 @@ email: any;
     this.email = "neopetsnathony@gmail.com"
     this.userLogin = fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    
+      password: ['', Validators.required, passwordLengthValidator(8)],
+      myCaptcha: ['', Validators.required, asyncValidatorFn, ]
     })
    }
 
@@ -35,14 +38,14 @@ resolved(myCaptchaResponse: string) {
 }
 
 onSubmit() {
-  console.log("this.userLogin");
-  if (this.userLogin.valid) {
-    const myCaptchaResponse = this.userLogin.controls.recaptcha.value;
-    console.log(myCaptchaResponse + "My captcha");
+//   console.log("this.userLogin");
+//   if (this.userLogin.valid) {
+//     const myCaptchaResponse = this.userLogin.controls.recaptcha.value;
+//     console.log(myCaptchaResponse + "My captcha");
 
     
- // Send a the reCAPTCHA response to your server for validation
-  }
+//  // Send a the reCAPTCHA response to your server for validation
+//   }
   
 }
   }
