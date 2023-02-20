@@ -19,7 +19,7 @@ export class UserProfileComponent {
   updateUser!: FormGroup
 
   updateUserDetails(){
-    if(this.updateUser.controls['fName'].hasError('required') || this.updateUser.controls['lName'].hasError('required') || this.updateUser.controls['email'].hasError('required') || this.updateUser.controls['cell'].hasError('required')){
+    if(this.updateUser.controls['first_name'].hasError('required') || this.updateUser.controls['last_name'].hasError('required') || this.updateUser.controls['email'].hasError('required') || this.updateUser.controls['mobile_number'].hasError('required') || this.updateUser.controls['home_number'].hasError('required')){
       Swal.fire({
         icon:"error",
         title:"Form fields cannot be empty"
@@ -55,16 +55,16 @@ export class UserProfileComponent {
     this.userService.getUserId(this.route.snapshot.params['id']).subscribe(user=>{
       this.getUser = user;
       this.updateUser = new FormGroup({
-        fName: new FormControl(user.fName,(Validators.required)),
-        lName: new FormControl(user.lName,(Validators.required)),
+        first_name: new FormControl(user.first_name,(Validators.required)),
+        last_name: new FormControl(user.last_name,(Validators.required)),
         email: new FormControl(user.email,(Validators.required, Validators.email)),
-        cell: new FormControl(user.cell,(Validators.required)),
-        home: new FormControl(user.home,(Validators.required))
+        mobile_number: new FormControl(user.mobile_number,(Validators.required)),
+        home_number: new FormControl(user.home_number,(Validators.required))
       })
     })
   }
 
-  userImage="/assets/FrontEnd Pictures/pexels-the-earthy-jay-15409085.jpg"
+  userImage="/assets/FrontEnd Pictures/registerpicture.png"
 
   onselectFile(event:any){
     if(event.target.files){

@@ -50,7 +50,7 @@ export class UserService {
   }
 
   getUserId(id: string):Observable<Users| any>{
-    return this.http.get<Users>(`${this.REST_API_URL}/find/${id}`).pipe(
+    return this.http.get<Users>(`${this.REST_API_URL}/users/${id}`).pipe(
       tap(user=>{
         console.log(`Found User = ${user}`)
       }),

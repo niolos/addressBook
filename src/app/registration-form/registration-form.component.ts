@@ -28,7 +28,7 @@ export class RegistrationFormComponent implements OnInit {
     
   ) {
     this.newUser = fb.group({
-      first_name: ['', Validators.required,],
+      first_name: ['', Validators.required],
       last_name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mobile_number: ['', Validators.required,],
@@ -88,7 +88,7 @@ export class RegistrationFormComponent implements OnInit {
     return null;
   }
 
-  userImage="../../assets/FrontEnd Pictures/pexels-the-earthy-jay-15409085.jpg"
+  userImage="../../assets/FrontEnd Pictures/Profilelogo.png"
 
   passwordMatchValidator(fg: FormGroup) {
     const password = fg.get('password')!.value;

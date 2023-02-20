@@ -188,11 +188,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.75);
 }
 
-.imageCon img{
-  object-fit:fill;
-  max-height:15rem;
-  max-width: 13rem;
-}
+
 
 .inputCon label{
   padding: 10px 25px;
@@ -204,8 +200,9 @@ input::-webkit-inner-spin-button {
 }
 
 .upload img{
-  height: 300px;
-  width:250px
+  max-height:15rem;
+  max-width: 13rem;
+  object-fit: fill;
 }
 
 .upload{
