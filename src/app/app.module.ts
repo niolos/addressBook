@@ -12,6 +12,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -37,12 +39,12 @@ import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recap
     RecaptchaModule,
   ],
   providers: [
-    // {
-    //   provide: RECAPTCHA_SETTINGS,
-    //   useValue: {
-    //     siteKey: environment.recaptcha.siteKey,
-    //   } as RecaptchaSettings,
-    // },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
 
   ],
   bootstrap: [AppComponent]

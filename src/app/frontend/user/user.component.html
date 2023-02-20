@@ -13,11 +13,10 @@
             <input type="password" id="password" placeholder="Enter password" formControlName="password">
             <span class="validator" *ngIf="userLogin.get('password').touched && userLogin.get('password').invalid">
                 <span *ngIf="userLogin.get('password').hasError('required')">Password is required</span>
-                <span *ngIf="userLogin.get('password').hasError('passwordTooShort')">Password must be at least 8 characters                            
-                </span>
+                <span *ngIf="userLogin.get('password').hasError('passwordTooShort')">Password must be at least 8 characters </span>
             </span>
             <div [hidden]="myCaptcha">
-                <re-captcha class="check" (resolved)="myCaptcha($event)"siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar"></re-captcha>
+                <re-captcha class="check" ngDefaultControl="myCaptcha" formControlName="myCaptcha" (resolved)="myCaptcha($event)"siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar"></re-captcha>
                 </div>
             <button type="submit"  class="btn" [disabled]="userLogin.invalid && !myCaptcha"  >Submit</button>
             <p class="newuser"  > Don't have an account? <a routerLink="register">register here.</a></p>

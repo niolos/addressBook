@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Users } from '../Models/users';
 import { UserService } from '../Services/user.service';
@@ -17,6 +17,7 @@ export class RegistrationFormComponent implements OnInit {
   newUser: any;
   // myCaptcha: any;
   selectedPic: any;
+  errorMessage: any;
   
 
   constructor(
@@ -24,6 +25,7 @@ export class RegistrationFormComponent implements OnInit {
     private router: Router, 
     private route:ActivatedRoute, 
     private userService: UserService,
+    private http: HttpClient,
     // private fg: FormGroup,
     
   ) {
@@ -35,7 +37,8 @@ export class RegistrationFormComponent implements OnInit {
       home_number: ['', Validators.required,],
       password: ['', Validators.required, passwordLengthValidator(8),],
       confirmPassword: ['', Validators.required,],
-      // profilePic: ['',[this.profilePicValidator,]],
+       profile_image: ['',[this.profilePicValidator,]],
+       
     }, {
       validator: this.passwordMatchValidator
       
@@ -44,6 +47,7 @@ export class RegistrationFormComponent implements OnInit {
  
 
    }
+   
    get password() {
     return this.newUser.get('password');
   }
@@ -51,6 +55,9 @@ export class RegistrationFormComponent implements OnInit {
   get confirmPassword() {
     return this.newUser.get('confirmPassword');
   }
+
+
+
   ngOnInit(): void {
  
  
@@ -60,10 +67,18 @@ export class RegistrationFormComponent implements OnInit {
 //To register a new user
   onSubmit() {
     console.log("SUBMITED")
+    console.log(this.confirmPassword.value + " True Password " + this.password.value + " Confirmation password")
+;
   this.userService.createNewUser(this.newUser.value).subscribe((data:any) => {console.log(data)});
   console.log(this.newUser.value);
   // this.router.navigate(['']);
+  (error: HttpErrorResponse) => {
+    this.errorMessage = error.message; 
+  }
 }
+
+
+
 
 profilePicValidator(control: FormControl): { [key: string]: any } | null {
   const file = control.value as File;
@@ -82,10 +97,10 @@ onPicSelected(event: any) {
 userImage="../../assets/FrontEnd Pictures/Profilelogo.png"
 
 passwordMatchValidator(fg: FormGroup) {
-  const password = fg.get('password')!.value;
-  const confirmPassword = fg.get('confirmPassword')!.value;
+    const password = fg.get('password')!.value;
+    const confirmPassword = fg.get('confirmPassword')!.value;
 
-  return password === confirmPassword ? null : { mismatch: true };
+    return password === confirmPassword ? null : { mismatch: true };
   }
 
 
