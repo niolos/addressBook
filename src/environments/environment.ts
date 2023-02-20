@@ -9,7 +9,6 @@ export const environment = {
 		siteKey: '6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar',
 	},
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

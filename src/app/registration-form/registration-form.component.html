@@ -32,14 +32,14 @@
           <label for="password">Password</label>
           <input type="password" class="password" formControlName="password" placeholder="Enter your password here" />
           <span class="validator" *ngIf="newUser.get('password').touched && newUser.get('password').invalid">
-            <span *ngIf="newUser.get('password').hasError('required')">Password is required</span>
-            <span *ngIf="newUser.get('password').hasError('minlength')">Password must be at least 8 characters                            
+            <span   *ngIf="newUser.get('password').hasError('required')">Password is required</span>
+            <span  *ngIf="newUser.get('password').hasError('passwordTooShort')">Password must be at least 8 characters                            
             </span>
         </span>
         <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password">
-        <span class ="validator" *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
-          <span *ngIf="confirmPassword.errors.required">Confirm Password is needed.</span>
-          <span *ngIf="password.value !== confirmPassword.value">Passwords do not match.</span>
+        <span class ="validator" *ngIf="newUser.get('confirmPassword').invalid && (newUser.get('confirmPassword').touched || newUser.get('confirmPassword').dirty )">
+          <span *ngIf="newUser.get('confirmPassword').hasError('required')">Confirm Password is needed.</span>
+          <span *ngIf="newUser.get('confirmPassword').hasError('passwordMatchValidator')">Password must be at least 8 characters   </span>
         </span>
       </div>
       <div class="upload">

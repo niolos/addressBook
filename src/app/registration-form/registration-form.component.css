@@ -160,6 +160,7 @@ img{
   
 }
 
+
 .nameval {
   text-align: center;  
 }
@@ -188,7 +189,11 @@ input::-webkit-inner-spin-button {
   box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.75);
 }
 
-
+.upload img{
+  max-height:15rem;
+  max-width: 13rem;
+  object-fit: fill;
+}
 
 .inputCon label{
   padding: 10px 25px;
