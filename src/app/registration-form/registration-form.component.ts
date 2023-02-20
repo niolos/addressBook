@@ -58,8 +58,8 @@ export class RegistrationFormComponent implements OnInit {
   }
  
 //To register a new user
-onSubmit() {
-  console.log("SUBMITED")
+  onSubmit() {
+    console.log("SUBMITED")
   this.userService.createNewUser(this.newUser.value).subscribe((data:any) => {console.log(data)});
   console.log(this.newUser.value);
   // this.router.navigate(['']);
@@ -86,8 +86,20 @@ passwordMatchValidator(fg: FormGroup) {
   const confirmPassword = fg.get('confirmPassword')!.value;
 
   return password === confirmPassword ? null : { mismatch: true };
-}
+  }
 
 
+
+  
+
+  onselectFile(event:any){
+    if(event.target.files){
+      var check = new FileReader();
+      check.readAsDataURL(event.target.files[0]);
+      check.onload=(change:any)=>{
+        this.userImage=change.target.result;
+      }
+    }
+  }
 }
 

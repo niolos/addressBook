@@ -17,11 +17,10 @@
                 </span>
             </span>
             <div [hidden]="myCaptcha">
-                <re-captcha (resolved)="myCaptcha($event)"siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar"></re-captcha>
+                <re-captcha class="check" (resolved)="myCaptcha($event)"siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar"></re-captcha>
                 </div>
             <button type="submit"  class="btn" [disabled]="userLogin.invalid && !myCaptcha"  >Submit</button>
             <p class="newuser"  > Don't have an account? <a routerLink="register">register here.</a></p>
-            <p class="newuser"> Don't have an account? <a routerLink="listAddress">register here.</a></p>
         </form>
 </div>
 
