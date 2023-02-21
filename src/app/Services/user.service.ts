@@ -5,6 +5,7 @@ import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Users } from '../Models/users';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { IApiResponse } from '../Models/apiResponse.interface';
 
 
 @Injectable({
@@ -12,6 +13,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 })
 export class UserService {
 
+  decodedToken:any
   // private REST_API_URL = environment.API_URL+'/users'
   private REST_API_URL = environment.API_URL+'/api/v1/common';
   // http://localhost:5000/api/v1/common/users?platform=web
@@ -49,17 +51,17 @@ export class UserService {
   // }
   }
 
-  getUserId(id: string):Observable<Users| any>{
-    return this.http.get<Users>(`${this.REST_API_URL}/users/${id}`).pipe(
+  getUserId(id: string):Observable<IApiResponse<Users>>{
+    return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}`).pipe(
       tap(user=>{
         console.log(`Found User = ${user}`)
       }),
-      catchError(error=> of(new Users()))
+      catchError(error=> of())
     )
   }
 
   updateUser(id:string, user:Users):Observable<Users>{
-    return this.http.put<Users>(`${this.REST_API_URL}/update/${id}`, user, this.HTTP_HEADER).pipe(
+    return this.http.put<Users>(`${this.REST_API_URL}/users/${id}`, user, this.HTTP_HEADER).pipe(
       tap(updateUser=>{
         console.log(`Updated Users = ${updateUser}`);
       }),
@@ -76,6 +78,15 @@ export class UserService {
     )
   }
 
+
+  getProfile(){
+    let token:string|null= localStorage.getItem("token")
+    if(token){
+      this.decodedToken=JSON.parse(atob(token.split(".")[1]))
+      console.log(this.decodedToken)
+    }
+    console.log(localStorage)
+  }
  
 
 

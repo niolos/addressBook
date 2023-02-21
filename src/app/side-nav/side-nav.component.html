@@ -1,9 +1,7 @@
 <div class="container">
   <img src="../assets/FrontEnd Pictures/amberlogo.png" alt="">
-  <div class="userImage" routerLink="/userProfile" routerLinkActive="active">
-    <i class="fa-solid fa-user"></i>
-  </div>
-  <h1>Jack Black</h1>
+  <img class="userImage" routerLink="/userProfile" routerLinkActive="active" [src]="userImage">
+  <h1 *ngIf="user">{{user.first_name}} {{user.last_name}}</h1>
   <ul>
     <li routerLink="/listAddress" routerLinkActive="active">
       <i class="fa-solid fa-house"></i>

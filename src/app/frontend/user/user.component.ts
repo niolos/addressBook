@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators} from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AbstractControl, ValidationErrors, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
 import { asyncValidatorFn } from 'src/app/Services/asyncronous-validator.service';
@@ -23,9 +23,9 @@ public check: boolean=false;
   private  fb: FormBuilder, private authService: AuthenticationService, private router:Router) {   }
 
   userLogin = new FormGroup({
-    email: new FormControl('',(Validators.required, Validators.email)),
-    password: new FormControl('',(Validators.required, passwordLengthValidator(8))),
-    checkCaptcha: new FormControl(),
+    email: new FormControl('',[Validators.required, Validators.email]),
+    password: new FormControl('',[Validators.required, Validators.minLength(8)]),
+    checkCaptcha: new FormControl('',[Validators.required]),
   })
    
   //   this.userLogin = fb.group({
@@ -47,31 +47,33 @@ public check: boolean=false;
   }
 
   onSubmit() {
-    this.authService.checkLogin(this.userLogin.value).subscribe(res=>{
-      if(res.status===200){
-        console.log("successful login")
-        console.log(this.userLogin);
-        localStorage.setItem('email', res['data']['existUser']['email'])
-        this.router.navigate(['/userProfile'])
-        Swal.fire({
-          title:"YOU HAVE SUCCESSFULLY LOGGED IN",
-          icon:"success"
-        })
-      }
-      else {
-        Swal.fire({
-          icon:"error",
-          title:"Please enter valid user credentials"
-        })
-        console.log('Not valid user')
-        console.log(this.userLogin)
-      }
-    },(err) => {
-      if(err) {
-        console.log('Error is ' , err)
-      }
-    })
-    
+    if(this.userLogin.valid){
+    this.authService.checkLogin(this.userLogin.value).subscribe({
+      next:(res)=>{
+        console.log("jack")
+        if(res.status===200){
+          console.log("successful login")
+          console.log(this.userLogin);
+          localStorage.setItem('token', res['data']['token'])
+          this.router.navigate(['/userProfile'])
+          Swal.fire({
+            title:"YOU HAVE SUCCESSFULLY LOGGED IN",
+            icon:"success"
+          })
+        }
+    },error:err=>{
+      Swal.fire({
+        icon:"error",
+        title:"Please enter valid user credentials"
+      })
+      }})
+    }
+    else{
+      Swal.fire({
+        icon:"error",
+        title:"Please complete all fields"
+      })
+    }
   }
 }
   

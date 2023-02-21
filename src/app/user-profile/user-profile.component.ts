@@ -17,6 +17,8 @@ export class UserProfileComponent {
 
   getUser!: Users
   updateUser!: FormGroup
+  userImage:String=""
+
 
   updateUserDetails(){
     if(this.updateUser.controls['first_name'].hasError('required') || this.updateUser.controls['last_name'].hasError('required') || this.updateUser.controls['email'].hasError('required') || this.updateUser.controls['mobile_number'].hasError('required') || this.updateUser.controls['home_number'].hasError('required')){
@@ -34,7 +36,7 @@ export class UserProfileComponent {
       this.router.navigate(['/addSub'])
     }
     else{
-      this.userService.updateUser(this.route.snapshot.params["id"], this.updateUser.value).subscribe({
+      this.userService.updateUser(this.userService.decodedToken.id, this.updateUser.value).subscribe({
         next:(res)=>{
           Swal.fire({
             icon: 'success',
@@ -52,19 +54,27 @@ export class UserProfileComponent {
   }
 
   ngOnInit(): void{
-    this.userService.getUserId(this.route.snapshot.params['id']).subscribe(user=>{
-      this.getUser = user;
+    
+    
+    this.userService.getProfile()
+    // console.log(localStorage.getItem("authToken"))
+    this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
+      console.log("user info", resp);
+      this.getUser = resp.data;
       this.updateUser = new FormGroup({
-        first_name: new FormControl(user.first_name,(Validators.required)),
-        last_name: new FormControl(user.last_name,(Validators.required)),
-        email: new FormControl(user.email,(Validators.required, Validators.email)),
-        mobile_number: new FormControl(user.mobile_number,(Validators.required)),
-        home_number: new FormControl(user.home_number,(Validators.required))
+        first_name: new FormControl(resp.data.first_name,(Validators.required)),
+        last_name: new FormControl(resp.data.last_name,(Validators.required)),
+        email: new FormControl(resp.data.email,(Validators.required, Validators.email)),
+        mobile_number: new FormControl(resp.data.mobile_number,(Validators.required)),
+        home_number: new FormControl(resp.data.home_number,(Validators.required))
       })
+      this.userImage="http://localhost:5000/"+resp.data.profile_image
     })
+
+    console.log(this.userImage)
   }
 
-  userImage="/assets/FrontEnd Pictures/registerpicture.png"
+  
 
   onselectFile(event:any){
     if(event.target.files){
