@@ -5,19 +5,19 @@
             <!-- Labels to be editted  -->
             <!-- <label class="label" for="email">Email</label> -->
             <input type="email" id="email" placeholder="Enter email" formControlName="email">
-            <span class="validator" *ngIf="userLogin.get('email')?.touched && userLogin.get('email')?.invalid">
+            <!-- <span class="validator" *ngIf="userLogin.get('email')?.touched && userLogin.get('email')?.invalid">
                 <span *ngIf="userLogin.get('email')?.hasError('required')">Email is required</span>
                 <span *ngIf="userLogin.get('email')?.hasError('email')">Email is invalid</span>
-            </span>      
+            </span>       -->
             <!-- <label class="label" for="password">Password</label> -->
             <input type="password" id="password" placeholder="Enter password" formControlName="password">
-            <span class="validator" *ngIf="userLogin.get('password')?.touched && userLogin.get('password')?.invalid">
+            <!-- <span class="validator" *ngIf="userLogin.get('password')?.touched && userLogin.get('password')?.invalid">
                 <span *ngIf="userLogin.get('password')?.hasError('required')">Password is required</span>
                 <span *ngIf="userLogin.get('password')?.hasError('passwordTooShort')">Password must be at least 8 characters                            
                 </span>
-            </span>
+            </span> -->
             <div>
-                <re-captcha class="check" ngDefaultControl="checkCaptcha" (resolved)="myCaptcha($event)" siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar" required></re-captcha>
+                <re-captcha class="check" formControlName="checkCaptcha" (resolved)="myCaptcha($event)" siteKey="6LdpLIkkAAAAAD7UZ2dO7uWJ8JGaPPiZvvl8iXar" required></re-captcha>
                 </div>
             <button type="submit" class="btn" (click)="onSubmit()">Submit</button>
             <p class="newuser"  > Don't have an account? <a routerLink="register">register here.</a></p>

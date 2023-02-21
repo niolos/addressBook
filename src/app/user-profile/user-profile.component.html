@@ -1,7 +1,7 @@
 <div class="container">
     <app-side-nav></app-side-nav>
     <!-- *ngIf="updateUser"  -->
-    <form class="profile" [formGroup]="updateUser">
+    <form class="profile" *ngIf="updateUser" [formGroup]="updateUser">
         <h1>Profile Settings</h1>
         <h2>Name</h2>
         <div class="name">

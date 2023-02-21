@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { DisplayAddressComponent } from './display-address/display-address.component';
-import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS, RecaptchaFormsModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 
 
@@ -37,6 +37,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     FormsModule,
     RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
     {
