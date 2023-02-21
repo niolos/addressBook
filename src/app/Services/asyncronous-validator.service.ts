@@ -32,6 +32,33 @@ export function passwordLengthValidator(minLength: number): AsyncValidatorFn {
     );
   };
 }
+export function passwordMatchValidator2(): AsyncValidatorFn {
+  return (control: AbstractControl): Observable<ValidationErrors | null> => {
+    const confirmPassword = control.value;
+    const password = control.value;
+    if (!confirmPassword) {
+      return of(null); // return null if the password field is empty
+    }
+
+    // simulate an asynchronous operation to check password length
+    return of(confirmPassword).pipe(
+      map((password: string) => {
+        if (confirmPassword !== password) {
+          return { passwordSame: true };
+        } else {
+          return null;
+        }
+      })
+    );
+
+    // const password = fg.get('password')!.value;
+    // const confirmPassword = fg.get('confirmPassword')!.value;
+
+    // return password === confirmPassword ? null : { mismatch: false };
+  };
+}
+
+
 
 
 // asyncValidatorFn, in reatcive forms just palce this after you placed validator required field (.reuqired one) and after this just place what you want.

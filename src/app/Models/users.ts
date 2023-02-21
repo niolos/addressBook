@@ -19,3 +19,16 @@ export class Users{
         this.profile_image = profile_image!;
     }
 }
+
+
+export interface userResponse<T=any>{
+    status:any;
+    message:any;
+    data:{
+        existUser:any
+    }
+    response:any
+    auth:any
+    users:T
+
+}
