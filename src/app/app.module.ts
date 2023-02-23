@@ -13,6 +13,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS, RecaptchaFormsModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { environment } from 'src/environments/environment';
     UserComponent,
     UserProfileComponent,
     DisplayAddressComponent,
+    FooterComponent,
  
   ],
   imports: [

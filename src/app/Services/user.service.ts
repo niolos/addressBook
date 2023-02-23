@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subscriber } from 'rxjs';
 import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -48,17 +48,25 @@ export class UserService {
        console.log(`This User = ${newUser}`);
      }),
      catchError(error => of())
+     
+     
     )
 
-  // createNewUser(user:Users):Observable<Users>{
-  //  return this.http.post<Users>(`${this.REST_API_URL}/create`, user, this.HTTP_HEADER).pipe(
-  //   tap(newUser =>{
-  //     console.log(`This User = ${newUser}`);
-  //   }),
-  //   catchError(error => of(new Users()))
-  //  )
-  // }
   }
+
+  makeRequest(user:Users):Observable<userResponse<Users>> {
+    return this.http.post<userResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+      tap(newUser =>{
+        console.log(`This User = ${newUser}`);
+      }),
+      catchError(error => of())
+
+      
+      
+     )
+  }
+
+ 
 
   getUserId(id: string):Observable<IApiResponse<Users>>{
     return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}`).pipe(

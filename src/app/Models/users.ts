@@ -21,14 +21,10 @@ export class Users{
 }
 
 
-export interface userResponse<T=any>{
-    status:any;
-    message:any;
-    data:{
-        existUser:any
-    }
-    response:any
-    auth:any
-    users:T
+export interface userResponse<T>{
+    status: number;
+    message: string;
+    data: T;
+    error?: string;
 
 }
