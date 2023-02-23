@@ -23,4 +23,8 @@ export class AuthenticationService {
     return this.http.post<authResponse<Users>>("http://localhost:5000/api/v1/common/login?platform=web", formData)
   }
 
+  getToken(){
+    return localStorage.getItem('token')
+  }
+
 }

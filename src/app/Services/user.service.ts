@@ -61,7 +61,7 @@ export class UserService {
   }
 
   getUserId(id: string):Observable<IApiResponse<Users>>{
-    return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}`).pipe(
+    return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}?platform=web`).pipe(
       tap(user=>{
         console.log(`Found User = ${user}`)
       }),
@@ -70,7 +70,7 @@ export class UserService {
   }
 
   updateUser(id:string, user:Users):Observable<Users>{
-    return this.http.put<Users>(`${this.REST_API_URL}/users/${id}`, user, this.HTTP_HEADER).pipe(
+    return this.http.put<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
       tap(updateUser=>{
         console.log(`Updated Users = ${updateUser}`);
       }),
@@ -92,9 +92,8 @@ export class UserService {
     let token:string|null= localStorage.getItem("token")
     if(token){
       this.decodedToken=JSON.parse(atob(token.split(".")[1]))
-      console.log(this.decodedToken)
+      console.log("decoded token",this.decodedToken)
     }
-    console.log(localStorage)
   }
  
 

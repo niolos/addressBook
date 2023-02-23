@@ -7,13 +7,14 @@ import { UserComponent } from './frontend/user/user.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { AddAddressComponent } from './add-address/add-address.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS, RecaptchaFormsModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
-
+import { InterceptInterceptor } from './Services/intercept.interceptor';
+import { AuthenticationService } from './Services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,12 @@ import { environment } from 'src/environments/environment';
     RecaptchaFormsModule
   ],
   providers: [
+    AuthenticationService,
+    {
+      provide:HTTP_INTERCEPTORS,
+      useClass:InterceptInterceptor,
+      multi:true
+    },
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

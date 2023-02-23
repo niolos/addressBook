@@ -5,18 +5,15 @@ import { UserComponent } from './frontend/user/user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { KeepoutGuard } from './Services/keepout.guard';
 
 const routes: Routes = [
   {path:'', component:UserComponent},
-  {path:'addAddress', component:AddAddressComponent},
-  {path:'userProfile', component:UserProfileComponent},
+  {path:'addAddress', component:AddAddressComponent, canActivate:[KeepoutGuard]},
+  {path:'userProfile', component:UserProfileComponent, canActivate:[KeepoutGuard]},
   {path: 'login', component:UserComponent},
-  {path: 'listAddress', component:DisplayAddressComponent},
+  {path: 'listAddress', component:DisplayAddressComponent, canActivate:[KeepoutGuard]},
   {path: 'register', component:RegistrationFormComponent},
-
-
-
-
 ];
 
 @NgModule({

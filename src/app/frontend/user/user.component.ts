@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators} from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { AbstractControl, ValidationErrors, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
-import { asyncValidatorFn } from 'src/app/Services/asyncronous-validator.service';
-import { passwordLengthValidator } from 'src/app/Services/asyncronous-validator.service';
 import { AuthenticationService } from 'src/app/Services/authentication.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
@@ -50,16 +46,14 @@ public check: boolean=false;
     if(this.userLogin.valid){
     this.authService.checkLogin(this.userLogin.value).subscribe({
       next:(res)=>{
-        console.log("jack")
         if(res.status===200){
-          console.log("successful login")
-          console.log(this.userLogin);
           localStorage.setItem('token', res['data']['token'])
-          this.router.navigate(['/userProfile'])
+          this.router.navigate(['/listAddress'])
           Swal.fire({
             title:"YOU HAVE SUCCESSFULLY LOGGED IN",
             icon:"success"
           })
+          console.log(localStorage.getItem('token'))
         }
     },error:err=>{
       Swal.fire({

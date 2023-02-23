@@ -54,10 +54,7 @@ export class UserProfileComponent {
   }
 
   ngOnInit(): void{
-    
-    
     this.userService.getProfile()
-    // console.log(localStorage.getItem("authToken"))
     this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
       console.log("user info", resp);
       this.getUser = resp.data;
@@ -68,7 +65,9 @@ export class UserProfileComponent {
         mobile_number: new FormControl(resp.data.mobile_number,(Validators.required)),
         home_number: new FormControl(resp.data.home_number,(Validators.required))
       })
-      this.userImage="http://localhost:5000/"+resp.data.profile_image
+
+      this.userImage="http://localhost:5000/"+resp.data.profile
+      
     })
 
     console.log(this.userImage)
