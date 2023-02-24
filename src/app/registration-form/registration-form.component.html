@@ -1,5 +1,6 @@
 <div class="container">
-  <h1>Registration Form</h1>
+   <div class="headerDiv">  <img src="../../assets/FrontEnd Pictures/amberlogo.png" alt="Logo" class="logo" >   
+    <h1>Registration Form <i class="fa-solid fa-pen-to-square pen" ></i></h1>  </div>
   <div class="formContainer">
     <div class="regEnhPic">
       <img src="../../assets/FrontEnd Pictures/registerpicture.png" alt="RegisterEnhancer">
@@ -7,7 +8,7 @@
       <form class="inputHolder" [formGroup]="newUser"  (ngSubmit)="onSubmit()">
         <label for="name">Name</label>
         <div class="nameDiv">
-          <input type="text"  formControlName="first_name" placeholder="Enter First Name" /> 
+          <input type="text"  formControlName="first_name" placeholder="Enter First Name" />  
           <input type="text" formControlName="last_name" placeholder="Enter Last Name" /> 
         </div>
         <!-- <span class="validator nameval" *ngIf="newUser.get('first_name').touched && newUser.get('first_name').invalid || newUser.get('last_name').touched && newUser.get('last_name').invalid">
@@ -20,6 +21,7 @@
             <span *ngIf="newUser.get('email').hasError('email')">Email is invalid</span>
           </span> -->
         <label for="phone">Phone Number</label>
+        <div class="phoneDiv">
           <input type="number" class="number" formControlName="mobile_number" placeholder="Cell Number" />
             <!-- <span class="validator" *ngIf="newUser.get('mobile_number').touched && newUser.get('mobile_number').invalid">
               <span *ngIf="newUser.get('mobile_number').hasError('required')">Contact No. is required</span>
@@ -28,14 +30,17 @@
             <!-- <span class="validator" *ngIf="newUser.get('home_number').touched && newUser.get('home_number').invalid">
               <span *ngIf="newUser.get('home_number').hasError('required')">Contact No. is required</span>
             </span> -->
-        <div class="password">
+          </div>
+        
+          
           <label for="password">Password</label>
+          <div class="password">
           <input type="password" class="password" formControlName="password" placeholder="Enter your password here"   />
           <!-- <span class="validator" *ngIf="newUser.get('password').touched && newUser.get('password').invalid">
             <span   *ngIf="newUser.get('password').hasError('required')">Password is required</span>
             <span  *ngIf="newUser.get('password').hasError('minlength')">Password must be at least 8 characters      </span>
         </span> -->
-        <input type="password"  formControlName="confirmPassword" placeholder="Confirm Password" >
+        <input type="password" class="form-12"  formControlName="confirmPassword" placeholder="Confirm Password" >
         <!-- <span class ="validator" *ngIf="newUser.get('confirmPassword').invalid && (newUser.get('confirmPassword').touched || newUser.get('confirmPassword').dirty ) ">
           <span *ngIf="newUser.get('confirmPassword').hasError('required')">Confirm Password is needed.</span>
           <span *ngIf="newUser.get('confirmPassword').hasError('passwordMatchValidator2')">Password must match   </span>
@@ -57,3 +62,6 @@
       </form>
   </div>
 </div>
+
+
+<app-footer></app-footer>

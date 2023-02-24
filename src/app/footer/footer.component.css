@@ -1,0 +1,50 @@
+
+.body {
+    background-color: #282828;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.body div {
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.iconDiv i {
+    padding: .5rem 1rem;
+    color: #ff4500;
+    cursor: pointer;
+}
+
+.linksDiv li {
+    display: inline-block;
+    padding: 0.5rem;
+    font-size: 1rem;
+    
+}
+
+a {
+   color:white;
+   text-decoration: none;
+}
+
+
+/* For the second body (body2) and everyting there in */
+.body2 {
+ color: white;
+ background-color: #ff4500;
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction: column;
+ text-align: center;
+}
+
+.body2 div {
+    padding: 0.5rem;
+    
+}
+

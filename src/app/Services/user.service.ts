@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, Subscriber } from 'rxjs';
 import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -42,23 +42,36 @@ export class UserService {
   //   catchError(error => of(new Users()))
   //  )
 
-   createNewUser(user:Users):Observable<userResponse<Users>>{
-    return this.http.post<userResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+   createNewUser(user:Users):Observable<userResponse<Users|null>>{
+    return this.http.post<userResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
      }),
-     catchError(error => of())
+     catchError(error => of({
+      status: error.status,
+      message: error.error.message,
+      data: null,
+      error: error.error.message,
+     }))
+     
+     
     )
 
-  // createNewUser(user:Users):Observable<Users>{
-  //  return this.http.post<Users>(`${this.REST_API_URL}/create`, user, this.HTTP_HEADER).pipe(
-  //   tap(newUser =>{
-  //     console.log(`This User = ${newUser}`);
-  //   }),
-  //   catchError(error => of(new Users()))
-  //  )
-  // }
   }
+
+  makeRequest(user:Users):Observable<userResponse<Users>> {
+    return this.http.post<userResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+      tap(newUser =>{
+        console.log(`This User = ${newUser}`);
+      }),
+      catchError(error => of())
+
+      
+      
+     )
+  }
+
+ 
 
   getUserId(id: string):Observable<IApiResponse<Users>>{
     return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}?platform=web`).pipe(

@@ -13,6 +13,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS, RecaptchaFormsModule } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
+import { FooterComponent } from './footer/footer.component';
+
 import { InterceptInterceptor } from './Services/intercept.interceptor';
 import { AuthenticationService } from './Services/authentication.service';
 
@@ -28,6 +30,7 @@ import { AuthenticationService } from './Services/authentication.service';
     UserComponent,
     UserProfileComponent,
     DisplayAddressComponent,
+    FooterComponent,
  
   ],
   imports: [
