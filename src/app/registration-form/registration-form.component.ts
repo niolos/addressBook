@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClientModule, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+<<<<<<< Updated upstream
 import { Users } from '../Models/users';
 import { UserService } from '../Services/user.service';
+=======
+import { Users} from '../Models/users';
+import { UserService,  } from '../Services/user.service';
+>>>>>>> Stashed changes
 // import { AsyncValidator } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { passwordLengthValidator, asyncValidatorFn, passwordMatchValidator2 } from '../Services/asyncronous-validator.service';
