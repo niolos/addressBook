@@ -44,20 +44,25 @@ export class RegistrationFormComponent implements OnInit {
   {
     this.newUser = fb.group(
       {
-        first_name: ['', [Validators.required, Validators.maxLength(36)]],
-        last_name: ['', [Validators.required, Validators.maxLength(36)]],
+        first_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(36)]],
+        last_name: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(36)]],
         email: ['', [Validators.required, Validators.email]],
-        mobile_number: ['', Validators.required],
-        home_number: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+        mobile_number: ['', Validators.required, Validators.minLength(3), Validators.maxLength(18)],
+        home_number: ['', Validators.required, Validators.minLength(3), Validators.maxLength(18)],
+        password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(18)]],
         confirmPassword: ['', [Validators.required]],
         profile_image: ['', [this.profilePicValidator]],
+        
       },
+      
       {}
+      
     );
+    console.log("IMAGE FOR USER" + this.newUser.profile)
   }
 
   // this is to gather the passwords for the validation in the sweet alert
+  
   get password() {
     return this.newUser.get('password');
   }
@@ -94,16 +99,38 @@ export class RegistrationFormComponent implements OnInit {
     }
     //Name Validations
     else if (
-      this.newUser.controls['first_name'].hasError('maxlength') ||
-      this.newUser.controls['last_name'].hasError('maxlength')
-    ) {
+      this.newUser.controls['first_name'].hasError('maxlength') ||  this.newUser.controls['last_name'].hasError('maxlength')
+      ) {
       Swal.fire({
         icon: 'error',
         title: 'First name and Last name must be less than 36 characters long',
         showConfirmButton: false,
         timer: 1500,
       });
-    } else if (this.newUser.controls['password'].hasError('minlength')) {
+      
+    }
+     else if ( this.newUser.controls['first_name'].hasError('minlength')  || this.newUser.controls['last_name'].hasError('minlength')) {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'First name and Last name must be more than 3 characters long',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+     }
+     else if (this.newUser.controls['mobile_number'].hasError('minLength') || this.newUser.controls['home_number'].hasError('minlength') ) {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Mobile number and Home number must be more than 3 characters long',
+
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+     }
+    else if (this.newUser.controls['password'].hasError('minlength')) {
       Swal.fire({
         icon: 'error',
         title: 'Password must be at least be 8 characters long',
@@ -170,7 +197,7 @@ export class RegistrationFormComponent implements OnInit {
          timer: 1500,
        });
        console.log(this.newUser.value);
-       // this.router.navigate(['']);
+       this.router.navigate(['']);
       
      }
         });
@@ -233,3 +260,4 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 }
+

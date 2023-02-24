@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { InterceptInterceptor } from './Services/intercept.interceptor';
 import { AuthenticationService } from './Services/authentication.service';
+import { UpdateAddressComponent } from './update-address/update-address.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AuthenticationService } from './Services/authentication.service';
     UserProfileComponent,
     DisplayAddressComponent,
     FooterComponent,
+    UpdateAddressComponent,
  
   ],
   imports: [

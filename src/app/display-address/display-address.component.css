@@ -117,3 +117,6 @@ h2,h1{
     flex-direction: column;
     row-gap: 0.7rem;
 }
+a {
+    text-decoration: none;
+}

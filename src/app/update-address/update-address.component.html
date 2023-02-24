@@ -1,0 +1,32 @@
+<div class="main">
+    <app-side-nav></app-side-nav>
+    <form class="content" [formGroup]="updateAddress">
+        <h1>Update Address</h1>
+        <h2>Street</h2>
+        <input type="text" placeholder="Address 1" formControlName="address1" required>
+        <input type="text" placeholder="Address 2" formControlName="address2" required>
+        <h2>City</h2>
+        <input type="text" placeholder="City" formControlName="city" required>
+        <h2>Parish</h2>
+        <select formControlName="parish" required>
+            <option value="St. Catherine">St. Catherine</option>
+            <option value="Clarendon" selected>Clarendon</option>
+            <option value="Hanover">Hanover</option>
+            <option value="Kingston">Kingston</option>
+            <option value="Manchester">Manchester</option>
+            <option value="Portland">Portland</option>
+            <option value="St. Andrew"> St. Andrew</option>
+            <option value="St. Ann">St. Ann</option>
+            <option value="St. Elizabeth">St. Elizabeth</option>
+            <option value="St. James">St. James</option>
+            <option value="St. Thomas">St. Thomas</option>
+            <option value="St. Mary">St. Mary</option>
+            <option value="Trelawny">Trelawny</option>
+            <option value="Westmoreland">Westmoreland</option>
+        </select>
+        <div class="buttonCon">
+            <button type="submit" (click)="editAddress()"> Update</button>
+        </div>
+    </form>
+</div>
+

@@ -26,7 +26,7 @@ export class SideNavComponent implements OnInit {
     this.userService.getProfile()
     this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
       this.user = resp.data
-      this.userImage="http://localhost:5000/"+resp.data.profile
+      this.userImage="http://localhost:5000/"+resp.data.profile_image
     })
   }
 

@@ -52,7 +52,7 @@
             <img [src]="userImage" alt="">
         </div>
         <div class="inputCon">
-            <input type="file" name="" id="upload" accept="image/*" hidden (change)="onselectFile($event)">
+            <input type="file" name="" id="upload" accept="image/*" formControlName="profile_image" hidden (change)="onselectFile($event)">
             <label for="upload">Choose a Picture</label>
         </div>
       </div>
@@ -61,6 +61,8 @@
         </div>
       </form>
   </div>
+  <p class="oldUser"  > <i> Already have  an account? <a routerLink="">Login here. </a> </i></p>
+
 </div>
 
 

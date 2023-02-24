@@ -66,7 +66,7 @@ export class UserProfileComponent {
         home_number: new FormControl(resp.data.home_number,(Validators.required))
       })
 
-      this.userImage="http://localhost:5000/"+resp.data.profile
+      this.userImage="http://localhost:5000/"+resp.data.profile_image
       
     })
 
