@@ -42,12 +42,17 @@ export class UserService {
   //   catchError(error => of(new Users()))
   //  )
 
-   createNewUser(user:Users):Observable<userResponse<Users>>{
-    return this.http.post<userResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+   createNewUser(user:Users):Observable<userResponse<Users|null>>{
+    return this.http.post<userResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
      }),
-     catchError(error => of())
+     catchError(error => of({
+      status: error.status,
+      message: error.error.message,
+      data: null,
+      error: error.error.message,
+     }))
      
      
     )

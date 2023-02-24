@@ -130,14 +130,10 @@ export class RegistrationFormComponent implements OnInit {
     }
 
 
-    //  else if (
-    //   this.userService
-    //   .createNewUser(this.newUser.value)
-    //   .subscribe((apiResponse  ) => {
-    //     console.log(data);
-    //   }); 
-
-    //  ) {}
+    // else if (this.userService.createNewUser(this.newUser).subscribe(res => res.status===404 && console.log(res.error))) {
+      
+      
+    // }
 
 
 
@@ -154,15 +150,30 @@ export class RegistrationFormComponent implements OnInit {
         .createNewUser(this.newUser.value)
         .subscribe((data: any) => {
           console.log(data);
+
+          if (data.status===404) {
+            
+            Swal.fire({
+              icon: 'error',
+              title: 'Email already exists',
+
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            
+          }
+     else {
+       Swal.fire({
+         icon: 'success',
+         title: 'Registration Successful',
+         showConfirmButton: false,
+         timer: 1500,
+       });
+       console.log(this.newUser.value);
+       // this.router.navigate(['']);
+      
+     }
         });
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Successful',
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      console.log(this.newUser.value);
-      // this.router.navigate(['']);
     }
   }
 
