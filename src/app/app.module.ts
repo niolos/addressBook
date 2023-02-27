@@ -9,6 +9,7 @@ import { AddAddressComponent } from './add-address/add-address.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { DisplayAddressComponent } from './display-address/display-address.component';
 import { RecaptchaModule, RecaptchaSettings, RECAPTCHA_SETTINGS, RecaptchaFormsModule } from 'ng-recaptcha';
@@ -33,7 +34,7 @@ import { UpdateAddressComponent } from './update-address/update-address.componen
     DisplayAddressComponent,
     FooterComponent,
     UpdateAddressComponent,
- 
+    
   ],
   imports: [
     BrowserModule,
@@ -43,7 +44,8 @@ import { UpdateAddressComponent } from './update-address/update-address.componen
     ReactiveFormsModule,
     FormsModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    GoogleMapsModule
   ],
   providers: [
     AuthenticationService,

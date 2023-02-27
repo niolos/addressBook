@@ -1,13 +1,13 @@
 <div class="container">
   <img src="../assets/FrontEnd Pictures/amberlogo.png" alt="">
-  <img class="userImage" routerLink="/userProfile" routerLinkActive="active" [src]="userImage">
+  <img class="userImage" routerLink="/user-profile" routerLinkActive="active" [src]="userImage">
   <h1 *ngIf="user">{{user.first_name}} {{user.last_name}}</h1>
   <ul>
-    <li routerLink="/listAddress" routerLinkActive="active">
+    <li routerLink="/list-address" routerLinkActive="active">
       <i class="fa-solid fa-house"></i>
       <h2>Addresses</h2>
     </li>
-    <li routerLink="/addAddress" routerLinkActive="active">
+    <li routerLink="/add-address" routerLinkActive="active">
       <i class="fa-solid fa-square-plus"></i>
       <h2>Add Address</h2>
     </li>

@@ -1,17 +1,17 @@
 export class Address{
     _id: string;
-    address1: String;
-    address2: String;
+    address_1: String;
+    address_2: String;
     city: String;
     parish: String;
-    userId:string;
+    user_id:string;
 
-    constructor(_id?: string, address1?: String, address2?: String, city?: String, parish?: String, userId?:string){
+    constructor(_id?: string, address_1?: String, address_2?: String, city?: String, parish?: String, user_id?:string){
         this._id = _id!;
-        this.address1 = address1!;
-        this.address2 = address2!;
+        this.address_1 = address_1!;
+        this.address_2 = address_2!;
         this.city = city!;
         this.parish = parish!;
-        this.userId = userId!;
+        this.user_id = user_id!;
     }
 }

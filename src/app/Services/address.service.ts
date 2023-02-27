@@ -12,7 +12,8 @@ import { IApiResponse } from '../Models/apiResponse.interface';
 })
 export class AddressService {
 
-  private REST_API_URL = environment.API_URL+'/api/v1/common/addresses'
+  private REST_API_URL = environment.API_URL+'/api/v1/common'
+  private USERS_API = environment.API_URL+'/api/v1/web/users'
 
   private HTTP_HEADER = {
     headers: new HttpHeaders({'content-type': 'application/json'})
@@ -20,20 +21,20 @@ export class AddressService {
 
   constructor(private http: HttpClient) { }
 
-  getAddress():Observable<Address[]>{
-    return this.http.get<Address[]>(this.REST_API_URL,this.HTTP_HEADER).pipe(
+  getAddress(id:string):Observable<IApiResponse<Address>[]|any>{
+    return this.http.get<IApiResponse<Address>[]>(`${this.USERS_API}/${id}/addresses`,this.HTTP_HEADER).pipe(
       tap(address=>{
-        console.log(`Recieved Addresses = ,  ${address}`)
+        // console.log(`Recieved Addresses =`,JSON.stringify(address))
       }),
       catchError(error => of([]))
     )
   }
 
   createNewAddress(address:Partial<Address>):Observable<IApiResponse<Address>>{
-   return this.http.post<IApiResponse<Address>>(`${this.REST_API_URL}?platform=web`, address).pipe(
-    // tap(newAddress =>{
-    //   console.log(`This Address = ${newAddress}`);
-    // }),
+   return this.http.post<IApiResponse<Address>>(`${this.REST_API_URL}/addresses?platform=web`, address).pipe(
+    tap(newAddress =>{
+      console.log(`This Address = ${newAddress}`);
+    }),
     catchError(error => of())
     )
   }
@@ -58,7 +59,7 @@ export class AddressService {
   // }
 
   getAddressbyId(id: string):Observable<Address| any>{
-    return this.http.get<Address>(`${this.REST_API_URL}/find/${id}`).pipe(
+    return this.http.get<Address>(`${this.REST_API_URL}/addresses/${id}platform=web`).pipe(
       tap(address=>{
         console.log(`Found User = ${Address}`)
       }),
@@ -67,7 +68,7 @@ export class AddressService {
   }
 
   updateAddress(id:string, address:Address):Observable<Address>{
-    return this.http.put<Address>(`${this.REST_API_URL}/update/${id}`, address, this.HTTP_HEADER).pipe(
+    return this.http.put<Address>(`${this.REST_API_URL}/addresses/update/${id}`, address, this.HTTP_HEADER).pipe(
       tap(updateAddress=>{
         console.log(`Updated Address = ${updateAddress}`);
       }),
@@ -76,9 +77,9 @@ export class AddressService {
   }
 
   deleteAddress(id:string){
-    return this.http.delete<Address>(`${this.REST_API_URL}/delete/${id}`, this.HTTP_HEADER).pipe(
+    return this.http.delete<Address>(`${this.REST_API_URL}/addresses/${id}/destroy?platform=web`, this.HTTP_HEADER).pipe(
       tap(deleteAddress=>{
-        console.log(`deleted Address = ${deleteAddress.address1}`);
+        console.log(`deleted Address = ${deleteAddress.address_1}`);
       }),
       catchError(error=> of(new Address()))
     )

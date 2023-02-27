@@ -11,12 +11,12 @@ import { KeepoutGuard } from './Services/keepout.guard';
 
 const routes: Routes = [
   {path:'', component:UserComponent},
-  {path:'addAddress', component:AddAddressComponent, canActivate:[KeepoutGuard]},
-  {path:'userProfile', component:UserProfileComponent, canActivate:[KeepoutGuard]},
+  {path:'add-address', component:AddAddressComponent, canActivate:[KeepoutGuard]},
+  {path:'user-profile', component:UserProfileComponent, canActivate:[KeepoutGuard]},
   {path: 'login', component:UserComponent},
-  {path: 'listAddress', component:DisplayAddressComponent, canActivate:[KeepoutGuard]},
+  {path: 'list-address', component:DisplayAddressComponent, canActivate:[KeepoutGuard]},
   {path: 'register', component:RegistrationFormComponent},
-  {path: 'updateAddress', component:UpdateAddressComponent},
+  {path: 'update-address', component:UpdateAddressComponent},
 ];
 
 @NgModule({
