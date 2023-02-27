@@ -33,7 +33,7 @@ export class UserProfileComponent {
           icon:"error",
           title:"Please enter a valid email"
       })
-      this.router.navigate(['/addSub'])
+      this.router.navigate(['/userProfile'])
     }
     else{
       this.userService.updateUser(this.userService.decodedToken.id, this.updateUser.value).subscribe({
@@ -44,10 +44,11 @@ export class UserProfileComponent {
             showConfirmButton: false,
             timer: 1500
           })
-          this.router.navigate(['/userProfile'])
+          
+          this.router.navigate(['/listAddress'])
         },
         error:(err)=>{
-          alert(err)
+          throw err
         }
       })
     }
@@ -63,25 +64,31 @@ export class UserProfileComponent {
         last_name: new FormControl(resp.data.last_name,(Validators.required)),
         email: new FormControl(resp.data.email,(Validators.required, Validators.email)),
         mobile_number: new FormControl(resp.data.mobile_number,(Validators.required)),
-        home_number: new FormControl(resp.data.home_number,(Validators.required))
+        home_number: new FormControl(resp.data.home_number,(Validators.required)),
+        profile_image: new FormControl(resp.data.profile_image,(Validators.required)),
+
       })
 
       this.userImage="http://localhost:5000/"+resp.data.profile_image
-      
+     
     })
-
-    console.log(this.userImage)
   }
 
   
+  
 
   onselectFile(event:any){
+    
     if(event.target.files){
       var check = new FileReader();
       check.readAsDataURL(event.target.files[0]);
       check.onload=(change:any)=>{
         this.userImage=change.target.result;
       }
+      // this.updateUser.controls['profile_image'].setValue(event.target.files[0])
+
     }
+
   }
+  
 }

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, Subscriber } from 'rxjs';
 import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {  userResponse, Users } from '../Models/users';
+import { Users } from '../Models/users';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { IApiResponse } from '../Models/apiResponse.interface';
 
@@ -42,8 +42,9 @@ export class UserService {
   //   catchError(error => of(new Users()))
   //  )
 
-   createNewUser(user:Users):Observable<userResponse<Users|null>>{
-    return this.http.post<userResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+   createNewUser(user:Users):Observable<IApiResponse<Users|null>>{
+    return this.http.post<IApiResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
      }),
@@ -59,8 +60,8 @@ export class UserService {
 
   }
 
-  makeRequest(user:Users):Observable<userResponse<Users>> {
-    return this.http.post<userResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+  makeRequest(user:Users):Observable<IApiResponse<Users>> {
+    return this.http.post<IApiResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
       tap(newUser =>{
         console.log(`This User = ${newUser}`);
       }),
@@ -72,7 +73,6 @@ export class UserService {
   }
 
  
-
   getUserId(id: string):Observable<IApiResponse<Users>>{
     return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}?platform=web`).pipe(
       tap(user=>{
