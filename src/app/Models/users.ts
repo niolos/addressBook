@@ -19,7 +19,6 @@ export class Users{
         this.profile_image = profile_image!;
     }
 }
-<<<<<<< Updated upstream
 
 
 export interface userResponse<T>{
@@ -29,5 +28,3 @@ export interface userResponse<T>{
     error?: string;
 
 }
-=======
->>>>>>> Stashed changes
