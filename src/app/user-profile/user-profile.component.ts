@@ -26,14 +26,14 @@ export class UserProfileComponent {
         icon:"error",
         title:"Form fields cannot be empty"
       })
-      this.router.navigate(['/userProfile'])
+      this.router.navigate(['/user-profile'])
     }
       else if(this.updateUser.controls['email'].hasError('email')){
         Swal.fire({
           icon:"error",
           title:"Please enter a valid email"
       })
-      this.router.navigate(['/userProfile'])
+      this.router.navigate(['/user-profile'])
     }
     else{
       this.userService.updateUser(this.userService.decodedToken.id, this.updateUser.value).subscribe({
@@ -45,7 +45,7 @@ export class UserProfileComponent {
             timer: 1500
           })
           
-          this.router.navigate(['/listAddress'])
+          this.router.navigate(['/list-address'])
         },
         error:(err)=>{
           throw err
@@ -65,7 +65,7 @@ export class UserProfileComponent {
         email: new FormControl(resp.data.email,(Validators.required, Validators.email)),
         mobile_number: new FormControl(resp.data.mobile_number,(Validators.required)),
         home_number: new FormControl(resp.data.home_number,(Validators.required)),
-        profile_image: new FormControl(resp.data.profile_image,(Validators.required)),
+        profile_image: new FormControl('',(Validators.required)),
 
       })
 
@@ -78,15 +78,13 @@ export class UserProfileComponent {
   
 
   onselectFile(event:any){
-    
     if(event.target.files){
       var check = new FileReader();
       check.readAsDataURL(event.target.files[0]);
       check.onload=(change:any)=>{
         this.userImage=change.target.result;
       }
-      // this.updateUser.controls['profile_image'].setValue(event.target.files[0])
-
+      
     }
 
   }

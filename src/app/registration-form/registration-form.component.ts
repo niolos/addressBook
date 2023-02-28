@@ -12,7 +12,7 @@ import {
 } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Users, userResponse  } from '../Models/users';
+import { Users} from '../Models/users';
 import { UserService,  } from '../Services/user.service';
 
 

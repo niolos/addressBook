@@ -4,7 +4,6 @@ import { Observable, of, Subscriber } from 'rxjs';
 import { catchError,map,tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Users } from '../Models/users';
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { IApiResponse } from '../Models/apiResponse.interface';
 
 
@@ -125,7 +124,7 @@ getImageBase64(user: string): Promise<string> {
   }
 
   updateUser(id:string, user:Users):Observable<Users>{
-    return this.http.put<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
+    return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
       tap(updateUser=>{
         console.log(`Updated Users = ${updateUser}`);
       }),

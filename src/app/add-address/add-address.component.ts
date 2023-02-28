@@ -20,25 +20,24 @@ export class AddAddressComponent implements OnInit {
 
   constructor(private router: Router, private parishService:ParishesService, private addressService: AddressService, private userService:UserService) { }
 
-  
 
   createAddress = new FormGroup({
-    address1: new FormControl('',(Validators.required)),
-    address2: new FormControl('',(Validators.required)),
+    address_1: new FormControl('',(Validators.required)),
+    address_2: new FormControl('',(Validators.required)),
     city: new FormControl('',(Validators.required)),
     parish: new FormControl('',(Validators.required)),
-    userId: new FormControl()
+    user_id: new FormControl()
   })
 
   newAddress(){
-    const formInput=this.createAddress.value as Partial<Address>
+    const formInput = this.createAddress.value as Partial<Address>
     // this.userService.getProfile()
-    if(this.createAddress.controls['address1'].hasError('required')||this.createAddress.controls['address2'].hasError('required')||this.createAddress.controls['city'].hasError('required')||this.createAddress.controls['parish'].hasError('required')){
+    if(this.createAddress.controls['address_1'].hasError('required')||this.createAddress.controls['address_2'].hasError('required')||this.createAddress.controls['city'].hasError('required')||this.createAddress.controls['parish'].hasError('required')){
       Swal.fire({
         icon:"error",
         title:"Form fields cannot be empty"
       })
-      this.router.navigate(['/addAddress'])
+      this.router.navigate(['/add-address'])
     }
     else{
       this.addressService.createNewAddress(formInput).subscribe({
@@ -48,7 +47,7 @@ export class AddAddressComponent implements OnInit {
             title:"Address successfully created",
             icon: 'success',
           })
-          this.router.navigate(['/listAddress'])
+          this.router.navigate(['/list-address'])
         },
         error:(err)=>{
           throw err
@@ -69,12 +68,26 @@ export class AddAddressComponent implements OnInit {
     this.userService.getProfile()
     this.getAllParishes()
     this.createAddress = new FormGroup({
-      address1: new FormControl('',(Validators.required)),
-      address2: new FormControl('',(Validators.required)),
+      address_1: new FormControl('',(Validators.required)),
+      address_2: new FormControl('',(Validators.required)),
       city: new FormControl('',(Validators.required)),
       parish: new FormControl('',(Validators.required)),
-      userId: new FormControl(this.userService.decodedToken.id)
+      user_id: new FormControl(this.userService.decodedToken.id)
     })
-  }
 
+    
+  }
+  
+  display: any;
+    center: google.maps.LatLngLiteral = {
+        lat: 24,
+        lng: 12
+    };
+    zoom = 4;
+    moveMap(event: google.maps.MapMouseEvent) {
+        if (event.latLng != null) this.center = (event.latLng.toJSON());
+    }
+    move(event: google.maps.MapMouseEvent) {
+        if (event.latLng != null) this.display = event.latLng.toJSON();
+    }
 }

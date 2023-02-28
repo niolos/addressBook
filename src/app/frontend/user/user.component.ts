@@ -48,7 +48,7 @@ public check: boolean=false;
       next:(res)=>{
         if(res.status===200){
           localStorage.setItem('token', res['data']['token'])
-          this.router.navigate(['/listAddress'])
+          this.router.navigate(['/list-address'])
           Swal.fire({
             title:"YOU HAVE SUCCESSFULLY LOGGED IN",
             icon:"success"

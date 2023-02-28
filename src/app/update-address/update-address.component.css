@@ -13,7 +13,7 @@
     width:78%;
     height:100vh;
     padding: 2rem;
-    row-gap: 1.3rem;
+    row-gap: 1.4rem;
     font-family: 'Inter', sans-serif;
 }
 
@@ -24,12 +24,12 @@
 .content select, .content input{
     background-color: rgb(235, 235, 235);
     border: none;
-    height:3.5rem;
-    width:60%;
+    height:2.3rem;
+    width:100%;
     border-radius: 10px;
     box-shadow: 5px 5px 10px -3px rgba(0,0,0,0.75);
     outline: none;
-    font-size: 22px;
+    font-size: 18px;
     padding:0 20px;
 }
 
@@ -43,7 +43,7 @@
 
 .buttonCon{
     position:relative;
-    width:50%;
+    width:100%;
     display: flex;
     justify-content: center;
     height:10%;
@@ -68,5 +68,28 @@ button{
 button:hover{
     background-position: right;
     cursor: pointer;
+}
+
+.addressLine{
+    position: relative;
+    display: flex;
+    width:100%;
+    column-gap: 40px;
+}
+
+.address{
+    width:40%;
+    position: relative;
+    row-gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.address input{
+    width:100%;
+}
+
+.parish{
+    width:90%
 }
 

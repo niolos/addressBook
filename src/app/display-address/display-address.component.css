@@ -30,7 +30,7 @@
     /* flex: 1 1 1  1600px; */
     padding: 0.3rem;
     width: 26%;
-    height: 250px;
+    min-height: 300px;
     border-radius: 19px;
     border-right: #00047d6c 2px solid;
     border-bottom: #00047d6c 2px solid;
@@ -46,7 +46,7 @@
     flex-direction: column;
     padding: 0.3rem;
     row-gap: 0.6rem;
-
+    
 }
 
 .boxStyle>* {

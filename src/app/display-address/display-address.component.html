@@ -4,71 +4,21 @@
         <h1>List of Addresses</h1>
         <div class="box">
             <!-- Div (line7) is the TO BE THE LISTING repeat can remove class name after API implmenetation -->
-            <div class="Listing Div IMPORTANT">
+            <div class="Listing Div IMPORTANT" *ngFor="let address of address; let i =index">
                 <div class="boxStyle">
-                    <h2>Address 1</h2>
+                    <h2>Address {{(i + 1)}}</h2>
                     <div class="info">
-                        <h3> 8 Clarendon Avenue</h3>
-                        <h3> Independent City</h3>
+                        <h3> {{address.address_1}}</h3>
+                        <h3>{{address.address_2}}</h3>
+                        <h3>{{address.city}}</h3>
                         <h3> St Catherine</h3>
                     </div>
                     <div class="iconCon">
-                        <a routerLink="/updateAddress"><i class="fa-solid fa-pen"></i></a>
-                    <i class="fa-solid fa-trash"></i>
+                        <a routerLink="/update-address"><i class="fa-solid fa-pen"></i></a>
+                    <i class="fa-solid fa-trash" (click)="delete_address(address._id)"></i>
                     </div>
-                    
                 </div>
             </div>
-            <!-- SECOND -->
-            <div class="Listing Div IMPORTANT">
-                <div class="boxStyle">
-                    <h2>Address 1</h2>
-                    <div class="info">
-                        <h3> 8 Clarendon Avenue</h3>
-                        <h3> Independent City</h3>
-                        <h3> St Catherine</h3>
-                    </div>
-                    <div class="iconCon">
-                        <i class="fa-solid fa-pen"></i>
-                    <i class="fa-solid fa-trash"></i>
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- THIRD -->
-            <div class="Listing Div IMPORTANT">
-                <div class="boxStyle">
-                    <h2>Address 1</h2>
-                    <div class="info">
-                        <h3> 8 Clarendon Avenue</h3>
-                        <h3> Independent City</h3>
-                        <h3> St Catherine</h3>
-                    </div>
-                    <div class="iconCon">
-                        <i class="fa-solid fa-pen"></i>
-                    <i class="fa-solid fa-trash"></i>
-                    </div>
-                    
-                </div>
-            </div>
-            <!-- FOURTH -->
-            <div class="Listing Div IMPORTANT">
-                <div class="boxStyle">
-                    <h2>Address 1</h2>
-                    <div class="info">
-                        <h3> 8 Clarendon Avenue</h3>
-                        <h3> Independent City</h3>
-                        <h3> St Catherine</h3>
-                    </div>
-                    <div class="iconCon">
-                        <i class="fa-solid fa-pen"></i>
-                    <i class="fa-solid fa-trash"></i>
-                    </div>
-                    
-                </div>
-            </div>
-   
-
         </div>
     </div>
 
