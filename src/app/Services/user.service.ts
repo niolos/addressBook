@@ -22,7 +22,14 @@ export class UserService {
 
   private HTTP_HEADER = {
     headers: new HttpHeaders({'content-type': 'application/json'})
+
    }
+
+  private HTTP_FormData = {
+    headers: new HttpHeaders({'content-type': 'application/form-data'}),
+
+   }
+  
 
 
   getUser():Observable<Users[]>{
@@ -42,24 +49,59 @@ export class UserService {
   //   catchError(error => of(new Users()))
   //  )
 
-   createNewUser(user:Users):Observable<IApiResponse<Users|null>>{
+   createNewUser(user:any ):Observable<IApiResponse<Users|null>>{
+
+    
     return this.http.post<IApiResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
 
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
+
+
+       
      }),
-     catchError(error => of({
+     catchError(error => {
+      console.log(error);
+      return of({
       status: error.status,
       message: error.error.message,
       data: null,
       error: error.error.message,
-     }))
-     
-     
+      
+     })})
+      
     )
+    
 
   }
+  
+  uploadPic(file:File):Observable<any> {
+  
+    // Create form data
+    const formData = new FormData(); 
+      
+    // Store form name as "file" with file data
+    formData.append("file", file,);
+      
+    // Make http post request over api
+    // with formData as req
+    return this.http.post("http://localhost:5000/api/v1/common/users?platform=web", formData)
+}
 
+getImageBase64(user: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    this.http.get(user, { responseType: 'blob' }).subscribe((blob: Blob) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        resolve(base64String.split(',')[1]);
+      };
+      reader.readAsDataURL(blob);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
   makeRequest(user:Users):Observable<IApiResponse<Users>> {
     return this.http.post<IApiResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
       tap(newUser =>{
