@@ -7,6 +7,7 @@ import { DisplayAddressComponent } from './display-address/display-address.compo
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { UpdateAddressComponent } from './update-address/update-address.component';
 import { KeepoutGuard } from './Services/keepout.guard';
+import { ErrorpageComponent } from './errorpage/errorpage.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'login', component:UserComponent},
   {path: 'list-address', component:DisplayAddressComponent, canActivate:[KeepoutGuard]},
   {path: 'register', component:RegistrationFormComponent},
-  {path: 'update-address', component:UpdateAddressComponent},
+  {path: 'update-address', component:UpdateAddressComponent},  
+  {path: '**', component:ErrorpageComponent},  
 ];
 
 @NgModule({

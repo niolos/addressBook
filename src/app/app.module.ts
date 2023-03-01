@@ -19,6 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 import { InterceptInterceptor } from './Services/intercept.interceptor';
 import { AuthenticationService } from './Services/authentication.service';
 import { UpdateAddressComponent } from './update-address/update-address.component';
+import { ErrorpageComponent } from './errorpage/errorpage.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UpdateAddressComponent } from './update-address/update-address.componen
     DisplayAddressComponent,
     FooterComponent,
     UpdateAddressComponent,
+    ErrorpageComponent,
     
   ],
   imports: [

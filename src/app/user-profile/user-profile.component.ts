@@ -28,7 +28,7 @@ export class UserProfileComponent {
     form.append(key, this.updateUser.controls[key].value)
     console.log(form, "The Form");
     });
-
+    //Required fields needed
     if(this.updateUser.controls['first_name'].hasError('required') || this.updateUser.controls['last_name'].hasError('required') || this.updateUser.controls['email'].hasError('required') || this.updateUser.controls['mobile_number'].hasError('required') || this.updateUser.controls['home_number'].hasError('required')){
       Swal.fire({
         icon:"error",
@@ -36,6 +36,37 @@ export class UserProfileComponent {
       })
       this.router.navigate(['/user-profile'])
     }
+    else if (this.updateUser.controls['first_name'].hasError('minLength') || this.updateUser.controls['last_name'].hasError('minLength')) {
+      Swal.fire({
+        icon:"error",
+        title:"First and Last name must be more than 2 characters"
+      })
+
+    }
+    else if (this.updateUser.controls['first_name'].hasError('maxLength') || this.updateUser.controls['last_name'].hasError('maxLength')) {
+      Swal.fire({
+        icon:"error",
+        title:"First and Last name must have less than 36 characters"
+      })
+
+    }
+    else if (this.updateUser.controls['first_name'].hasError('pattern') || this.updateUser.controls['last_name'].hasError('pattern')) {
+      Swal.fire({
+        icon:"error",
+        title:"First and Last name can only contain letters and not numbers."
+
+      })
+    
+    }
+    //Number validation
+    else if (this.updateUser.controls['mobile_number'].hasError('min') || this.updateUser.controls['mobile_number'].hasError('max') || 
+    this.updateUser.controls['home_number'].hasError('min') || this.updateUser.controls['home_number'].hasError('max')) {
+      Swal.fire({
+        icon:"error",
+        title:"Number can only limit of three up to 10 characters."
+      })
+    }
+    
       else if(this.updateUser.controls['email'].hasError('email')){
         Swal.fire({
           icon:"error",
