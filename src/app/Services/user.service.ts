@@ -51,7 +51,7 @@ export class UserService {
    createNewUser(user:any ):Observable<IApiResponse<Users|null>>{
 
     
-    return this.http.post<IApiResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
+    return this.http.post<IApiResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user).pipe(
 
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
@@ -123,14 +123,22 @@ getImageBase64(user: string): Promise<string> {
     )
   }
 
-  updateUser(id:string, user:Users):Observable<Users>{
-    return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
+  updateUser(id:string, user: any):Observable<Users>{
+    return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user).pipe(
       tap(updateUser=>{
         console.log(`Updated Users = ${updateUser}`);
       }),
       catchError(error => of(new Users()))
     )
   }
+  // updateUser(id:string, user:Users):Observable<Users>{
+  //   return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
+  //     tap(updateUser=>{
+  //       console.log(`Updated Users = ${updateUser}`);
+  //     }),
+  //     catchError(error => of(new Users()))
+  //   )
+  // }
 
   deleteUsers(id:string){
     return this.http.delete<Users>(`${this.REST_API_URL}/delete/${id}`, this.HTTP_HEADER).pipe(

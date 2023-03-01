@@ -12,8 +12,8 @@ import {
 } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Users} from '../Models/users';
-import { UserService,  } from '../Services/user.service';
+import { Users } from '../Models/users';
+import { UserService, } from '../Services/user.service';
 
 
 // import { AsyncValidator } from '@angular/forms';
@@ -33,42 +33,42 @@ import { kMaxLength } from 'buffer';
 export class RegistrationFormComponent implements OnInit {
   newUser: any;
   // myCaptcha: any;
-  selectedPic: any;
+  // selectedPic: any;
   errorMessage: any;
   // userImage:String;
   selctedFile: File;
-
+  selectedPic:String=""
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService,
     private http: HttpClient
-    
+
   ) // private fg: FormGroup,
 
   {
     this.newUser = fb.group(
       {
         first_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$')]],
-        last_name: ['', [Validators.required,Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$')]],
+        last_name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$')]],
         email: ['', [Validators.required, Validators.email]],
         mobile_number: ['', [Validators.required, Validators.min(-999), Validators.max(9999999999999)]],
         home_number: ['', [Validators.required, Validators.min(-999), Validators.max(9999999999999)]],
         password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(18)]],
         confirmPassword: ['', [Validators.required]],
         profile_image: ['', [this.profilePicValidator]],
-        
+
       },
-      
+
       {}
-      
+
     );
     console.log("IMAGE FOR USER " + this.newUser.profile_image)
   }
 
   // this is to gather the passwords for the validation in the sweet alert
-  
+
   get password() {
     return this.newUser.get('password');
   }
@@ -78,10 +78,10 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   get profilePic() {
-    
+
     // return this.newUser.get('profile_image').toString().replace(/^.*\\/, "");
     return this.newUser.get('profile_image');
-     
+
 
   }
 
@@ -90,7 +90,14 @@ export class RegistrationFormComponent implements OnInit {
   // To register a new user 101
   onSubmit() {
 
+    const form = new FormData();
+
+    // append all data to the Form Data object from the Reactive form
+    // this was done for file upload because reactive forms doesn't natively support file upload
+    Object.keys(this.newUser.controls).forEach((key) => {
+      form.append(key, this.newUser.controls[key].value);
     
+    });
     //Password value confirmation
 
 
@@ -113,28 +120,28 @@ export class RegistrationFormComponent implements OnInit {
     }
     //Name Validations
     else if (
-      this.newUser.controls['first_name'].hasError('maxlength') ||  this.newUser.controls['last_name'].hasError('maxlength')
-      ) {
+      this.newUser.controls['first_name'].hasError('maxlength') || this.newUser.controls['last_name'].hasError('maxlength')
+    ) {
       Swal.fire({
         icon: 'error',
         title: 'First name and Last name must be less than 36 characters long',
         showConfirmButton: false,
         timer: 1500,
       });
-      
+
     }
     else if (
-      this.newUser.controls['first_name'].hasError('pattern') ||  this.newUser.controls['last_name'].hasError('pattern')
-      ) {
+      this.newUser.controls['first_name'].hasError('pattern') || this.newUser.controls['last_name'].hasError('pattern')
+    ) {
       Swal.fire({
         icon: 'error',
         title: 'Only letters for names can be submitted no numbers.',
         showConfirmButton: false,
         timer: 1500,
       });
-      
+
     }
-     else if ( this.newUser.controls['first_name'].hasError('minlength')  || this.newUser.controls['last_name'].hasError('minlength')) {
+    else if (this.newUser.controls['first_name'].hasError('minlength') || this.newUser.controls['last_name'].hasError('minlength')) {
 
       Swal.fire({
         icon: 'error',
@@ -143,7 +150,7 @@ export class RegistrationFormComponent implements OnInit {
         timer: 1500,
       });
 
-     }
+    }
     //  else if (this.newUser.controls['mobile_number'].hasError('minLength') || this.newUser.controls['home_number'].hasError('minLength')) {
 
     //   Swal.fire({
@@ -154,7 +161,7 @@ export class RegistrationFormComponent implements OnInit {
     //   });
 
     //  }
-     else if ( this.newUser.controls['mobile_number'].hasError('min')  || this.newUser.controls['home_number'].hasError('min')) {
+    else if (this.newUser.controls['mobile_number'].hasError('min') || this.newUser.controls['home_number'].hasError('min')) {
 
       Swal.fire({
         icon: 'error',
@@ -172,6 +179,16 @@ export class RegistrationFormComponent implements OnInit {
         timer: 1500,
       });
     }
+     else if (this.newUser.controls['profile_image'].hasError('profilePicValidator')) {
+
+      Swal.fire({
+        icon: 'error',
+        title: 'File Size is too large or file is not an image',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+     }
     //required validators
     else if (
       this.newUser.controls['password'].hasError('required') ||
@@ -192,8 +209,8 @@ export class RegistrationFormComponent implements OnInit {
 
 
     // else if (this.userService.createNewUser(this.newUser).subscribe(res => res.status===404 && console.log(res.error))) {
-      
-      
+
+
     // }
 
 
@@ -206,44 +223,40 @@ export class RegistrationFormComponent implements OnInit {
         this.confirmPassword.value +
         'password' +
         this.password.value
-        
-       
+
+
       );
 
       console.log("DATA DOT PROFILE IMAGE = " + this.profilePic);
-      
-        
-        
-        
-
-       
-        // this.userService.uploadPic(this.newUser.get('profile_image').value,)
-
-        this.userService.getImageBase64(this.newUser.get('profile_image').value).then((base64String: string) => {
-  console.log(base64String);
-}).catch((error) => {
-  console.error(error);
-});
 
 
 
 
 
 
-        console.log(this.newUser.value)
+      // this.userService.uploadPic(this.newUser.get('profile_image').value,)
+
+
+
+
+
+
+
+
+      console.log(this.newUser.value)
       this.userService
-      
-        .createNewUser(this.newUser.value, )
-        
-       
-  // this.createNewUser(this.newUser.value, ).subscribe((data: any) => { console.log(this.newUser.value);
-    
+
+        .createNewUser(form)
+
+
+        // this.createNewUser(this.newUser.value, ).subscribe((data: any) => { console.log(this.newUser.value);
+
 
         .subscribe((data: any) => {
-          
 
-          if (data.status===404) {
-            
+
+          if (data.status === 404) {
+
             Swal.fire({
               icon: 'error',
               title: 'Email already exists',
@@ -251,30 +264,30 @@ export class RegistrationFormComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
-            
+
           }
-     else {
-   
-      console.log(this.newUser.get('profile_image').value + "  " +this.newUser.get('profile_image').file)
-      
-      
-      
-      // this.userService.uploadPic(this.newUser.get('profile_image').value,)
-      
-      // imgData = getBase64Image(this.newUser.get('profile_image').value,);
-      // localStorage.setItem("imgData", this.imgData);
-      
-      // this.newUser.push(data.profile_image);
-       Swal.fire({
-         icon: 'success',
-         title: 'Registration Successful',
-         showConfirmButton: false,
-         timer: 1500,
-       });
-       console.log(this.newUser.value);
-       this.router.navigate(['']);
-      
-     }
+          else {
+
+            console.log(this.newUser.get('profile_image').value + "  " + this.newUser.get('profile_image').file)
+
+
+
+            // this.userService.uploadPic(this.newUser.get('profile_image').value,)
+
+            // imgData = getBase64Image(this.newUser.get('profile_image').value,);
+            // localStorage.setItem("imgData", this.imgData);
+
+            // this.newUser.push(data.profile_image);
+            Swal.fire({
+              icon: 'success',
+              title: 'Registration Successful',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            console.log(this.newUser.value);
+            this.router.navigate(['']);
+
+          }
         });
     }
   }
@@ -315,47 +328,54 @@ export class RegistrationFormComponent implements OnInit {
     // if (file.type.split('/')[0] !== 'image') {
     //   return { 'invalidFileType': true };
     // }
-    if (file.size > 10000000) {
+    // if (file.size > 1000000000000000000) {
+      console.log(File, 'file size');
+    if (file.size > 1) {
       return { fileTooLarge: true };
     }
     return null;
   }
   onPicSelected(event: any) {
-    
-    
+
+
   }
-  userImage = '../../../../../GitHub/AddressBook-API/uploads/Profile/Profilelogo.png';
-  
+  userImage = '../../assets/FrontEnd Pictures/Profilelogo.png';
+
   onselectFile(event: any) {
     console.log(event)
     if (event.target.files) {
-      this.selectedPic = <File>event.target.files[0];
-      
+      this.selectedPic = event.target.files[0];
+
+
+
+
+
       var check = new FileReader();
-      check.readAsDataURL(<File>event.target.files[0]);
+      check.readAsDataURL(event.target.files[0]);
       check.onload = (change: any) => {
         this.userImage = change.target.result;
         console.log(this.selectedPic + " SELECTED PIC")
-        this.uploadFile(this.selectedPic);
+        // this.uploadFile(this.selectedPic);
+        console.log(this.selectedPic + " UPLOADING")
+        
+         this.newUser.patchValue({ profile_image: this.selectedPic });
+        //  this.profilePicValidator(this.selectedPic)
 
 
-        
-       
-        
       };
     }
   }
 
-  onselectFile2(event: any) {
+  // onselectFile2(event: any) {
 
-    const file: File = event.target.files[0];
-    
-  }
-  uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append('file', file, file.name);
-    localStorage.setItem('file', JSON.stringify(formData));
-  }
+  //   const file: File = event.target.files[0];
+
+  // }
+  // uploadFile(file: File) {
+  //   const formData = new FormData();
+  //   formData.append('file', file, file.name);
+  //   localStorage.setItem('file', JSON.stringify(formData));
+  // }
   // onSubmit() {
   //   const formData = new FormData();
   //   formData.append('email', this.newUser.get('email').value);
@@ -367,9 +387,9 @@ export class RegistrationFormComponent implements OnInit {
   //   formData.append('confirmPassword', this.newUser.get('confirmPassword').value);
   //   formData.append('profile', this.newUser.get('profile_image').value);
   //   this.http.post<any>("http://localhost:5000/api/v1/common/users?platform=web", formData).subscribe(res => {console.log(res), console.log(Error)})
-    
-  
-    
+
+
+
   // }
 
 }
