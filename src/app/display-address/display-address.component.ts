@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AddressService } from '../Services/address.service';
 import { Address } from '../Models/address';
 import { UserService } from '../Services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-address',
@@ -12,7 +13,7 @@ import { UserService } from '../Services/user.service';
 })
 export class DisplayAddressComponent {
   
-  constructor(private addressService:AddressService, private userService:UserService){}
+  constructor(private addressService:AddressService, private userService:UserService, private route:Router){}
 
   address!: Address[]
 
@@ -22,7 +23,6 @@ export class DisplayAddressComponent {
 
     this.addressService.getAddress(this.userService.decodedToken.id).subscribe((getAddresses)=>{
       this.address = getAddresses.data
-      console.log(this.address)
     })
   }
 
@@ -55,9 +55,13 @@ export class DisplayAddressComponent {
     
   }
 
+  updateAddress(id:string){
+    sessionStorage.setItem("addressId",id);
+    this.route.navigate(['/update-address'])
+  }
+
 
   ngOnInit(): void {
-
     this.getAllAddresses()
   }
 }

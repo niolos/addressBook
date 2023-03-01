@@ -23,6 +23,8 @@
             <option value="" disabled selected>-- Default --</option>
             <option *ngFor="let par of parishes" [value]="par._id">{{par.parishName}}</option>
         </select>
+        <div class="mapTest" id="map"></div>
+
         <div class="buttonCon">
             <button type="submit" (click)="editAddress()"> Add</button>
         </div>

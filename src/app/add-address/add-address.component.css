@@ -93,3 +93,15 @@ button:hover{
     width:90%
 }
 
+.map{
+    width:100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mapTest{
+    width:50%;
+    height:40%;
+}

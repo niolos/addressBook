@@ -30,44 +30,45 @@ export class AddressService {
     )
   }
 
-  createNewAddress(address:Partial<Address>):Observable<IApiResponse<Address>>{
-   return this.http.post<IApiResponse<Address>>(`${this.REST_API_URL}/addresses?platform=web`, address).pipe(
-    tap(newAddress =>{
-      console.log(`This Address = ${newAddress}`);
-    }),
-    catchError(error => of())
-    )
-  }
-
-
-
-  // createNewAddress(address:Partial<Address>):Observable<IApiResponse<Address|null>>{
-  //   return this.http.post<IApiResponse<Address|null>>(`${this.REST_API_URL}?platform=web`, address, this.HTTP_HEADER).pipe(
-  //    tap(newAddress =>{
-  //      console.log(`This User = ${newAddress}`);
-  //    }),
-  //    catchError(error => of({
-  //     status: error.status,
-  //     message: error.error.message,
-  //     data: null,
-  //     error: error.error.message,
-  //    }))
-     
-     
+  // createNewAddress(address:Partial<Address>):Observable<IApiResponse<Address>>{
+  //  return this.http.post<IApiResponse<Address>>(`${this.REST_API_URL}/addresses?platform=web`, address).pipe(
+  //   tap(newAddress =>{
+  //     console.log(`This Address = ${newAddress}`);
+  //   }),
+  //   catchError(error => of())
   //   )
-
   // }
+
+
+
+  createNewAddress(address:Partial<Address>):Observable<IApiResponse<Address|null>>{
+    console.log("address dets", address)
+    return this.http.post<IApiResponse<Address|null>>(`${this.REST_API_URL}/addresses?platform=web`, address, this.HTTP_HEADER).pipe(
+     tap(newAddress =>{
+       console.log(`This address = ${newAddress}`);
+     }),
+     catchError(error => of({
+      status: error.status,
+      message: error.error.message,
+      data: null,
+      error: error.error.message,
+     }))
+     
+     
+    )
+
+  }
 
   getAddressbyId(id: string):Observable<Address| any>{
     return this.http.get<Address>(`${this.REST_API_URL}/addresses/${id}platform=web`).pipe(
       tap(address=>{
-        console.log(`Found User = ${Address}`)
+        console.log(`Found address = ${Address}`)
       }),
       catchError(error=> of(new Address()))
     )
   }
 
-  updateAddress(id:string, address:Address):Observable<Address>{
+  updateAddress(id:string, address:Partial<Address>):Observable<Address>{
     return this.http.put<Address>(`${this.REST_API_URL}/addresses/update/${id}`, address, this.HTTP_HEADER).pipe(
       tap(updateAddress=>{
         console.log(`Updated Address = ${updateAddress}`);

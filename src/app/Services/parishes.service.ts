@@ -21,7 +21,7 @@ export class ParishesService {
   constructor(private http: HttpClient) { }
 
   getParishes():Observable<IApiResponse<Parish[]>>{
-    return this.http.get<IApiResponse<Parish[]>>(this.REST_API_URL,this.HTTP_HEADER).pipe(
+    return this.http.get<IApiResponse<Parish[]>>(this.REST_API_URL).pipe(
       tap(parishes=>{
         console.log(`Recieved Parishes = ,  ${parishes}`)
       }),
