@@ -76,7 +76,7 @@ export class UpdateAddressComponent {
     if(id){
       this.addressService.getAddressbyId(id).subscribe(resp=>{
         this.getAddress =resp.data
-        console.log(this.getAddress)
+        console.log("this address",this.getAddress)
         this.updateAddress =new FormGroup({
           address_1: new FormControl(resp.data.address_1,(Validators.required)),
           address_2: new FormControl(resp.data.address_2,(Validators.required)),

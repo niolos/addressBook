@@ -1,11 +1,11 @@
 <div class="main">
     <app-side-nav></app-side-nav>
     <form class="content" [formGroup]="updateAddress">
-        <h1>Add Address</h1>
+        <h1>Edit Address</h1>
         <div class="addressLine">
             <div class="address">
                 <h2>Address Line 1</h2>
-                <input type="text" placeholder="Address 1" formControlName="address_1" required>
+                <input type="text" placeholder="Address 1" formControlName="address_1" required id="address">
             </div>
             <div class="address">
                 <h2>Address Line 2</h2>
@@ -20,13 +20,12 @@
         <div class="parishes"></div>
         <h2>Parish</h2>
         <select formControlName="parish" required>
-            <option value="" disabled selected>-- Default --</option>
             <option *ngFor="let par of parishes" [value]="par._id">{{par.parishName}}</option>
         </select>
         <div class="mapTest" id="map"></div>
 
         <div class="buttonCon">
-            <button type="submit" (click)="editAddress()"> Add</button>
+            <button type="submit" (click)="editAddress()">Update</button>
         </div>
     </form>
 </div>

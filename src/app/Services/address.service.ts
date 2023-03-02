@@ -59,17 +59,26 @@ export class AddressService {
 
   }
 
-  getAddressbyId(id: string):Observable<Address| any>{
-    return this.http.get<Address>(`${this.REST_API_URL}/addresses/${id}platform=web`).pipe(
+  getAddressbyId(id: string):Observable<IApiResponse<Address| any>>{
+    return this.http.get<IApiResponse<Address>>(`${this.REST_API_URL}/addresses/${id}?platform=web`).pipe(
       tap(address=>{
-        console.log(`Found address = ${Address}`)
+        console.log(`Found address = ${address}`)
       }),
-      catchError(error=> of(new Address()))
-    )
+      catchError(error => {
+        console.log(error);
+        return of({
+        status: error.status,
+        message: error.error.message,
+        data: null,
+        error: error.error.message,
+        
+       })})
+        
+      )
   }
 
   updateAddress(id:string, address:Partial<Address>):Observable<Address>{
-    return this.http.put<Address>(`${this.REST_API_URL}/addresses/update/${id}`, address, this.HTTP_HEADER).pipe(
+    return this.http.put<Address>(`${this.REST_API_URL}/addresses/${id}`, address, this.HTTP_HEADER).pipe(
       tap(updateAddress=>{
         console.log(`Updated Address = ${updateAddress}`);
       }),

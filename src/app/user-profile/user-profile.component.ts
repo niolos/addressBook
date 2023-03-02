@@ -65,7 +65,6 @@ export class UserProfileComponent {
   ngOnInit(): void{
     this.userService.getProfile()
     this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
-      console.log("user info", resp);
       this.getUser = resp.data;
       this.updateUser = new FormGroup({
         first_name: new FormControl(resp.data.first_name,(Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$'))),
