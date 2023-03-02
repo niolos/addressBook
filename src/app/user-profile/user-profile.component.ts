@@ -1,6 +1,7 @@
 import { Component, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { response } from 'express';
 import Swal from 'sweetalert2'
 import { Users } from '../Models/users';
 import { UserService } from '../Services/user.service';
@@ -25,14 +26,15 @@ export class UserProfileComponent {
   userImage:any = ""
   selectedPic:String=""
   defaultImage:String="../../assets/FrontEnd Pictures/Profilelogo.png"
-
+    // cloudstatus:any=""
 
   updateUserDetails(){
     const form : any = new FormData();
     
     Object.keys(this.updateUser.controls).forEach((key) => {
     form.append(key, this.updateUser.controls[key].value)
-    console.log(form, "The Form");
+    // console.log(form, "The Form");
+    // console.log(this.cloudstatus, 'PLEASE WORK')
     });
     //Required fields needed
     if(this.updateUser.controls['first_name'].hasError('required') || this.updateUser.controls['last_name'].hasError('required') || this.updateUser.controls['email'].hasError('required') || this.updateUser.controls['mobile_number'].hasError('required') || this.updateUser.controls['home_number'].hasError('required')){
@@ -47,6 +49,7 @@ export class UserProfileComponent {
         icon:"error",
         title:"First and Last name must be more than 2 characters"
       })
+      this.router.navigate(['/user-profile'])
 
     }
     else if (this.updateUser.controls['first_name'].hasError('maxLength') || this.updateUser.controls['last_name'].hasError('maxLength')) {
@@ -54,6 +57,7 @@ export class UserProfileComponent {
         icon:"error",
         title:"First and Last name must have less than 36 characters"
       })
+      this.router.navigate(['/user-profile'])
 
     }
     else if (this.updateUser.controls['first_name'].hasError('pattern') || this.updateUser.controls['last_name'].hasError('pattern')) {
@@ -62,6 +66,7 @@ export class UserProfileComponent {
         title:"First and Last name can only contain letters and not numbers."
 
       })
+      this.router.navigate(['/user-profile'])
     
     }
     //Number validation
@@ -71,6 +76,7 @@ export class UserProfileComponent {
         icon:"error",
         title:"Number can only limit of three up to 10 characters."
       })
+      this.router.navigate(['/user-profile'])
     }
     
       else if(this.updateUser.controls['email'].hasError('email')){
@@ -82,18 +88,33 @@ export class UserProfileComponent {
     }
     else{
       this.userService.updateUser(this.userService.decodedToken.id, form).subscribe({
-        next:(res)=>{
-          Swal.fire({
-            icon: 'success',
-            title: 'Update Successful',
-            showConfirmButton: false,
-            timer: 1500
-          })
+        
+        next:(res:any)=>{
           
-          this.router.navigate(['/list-address'])
+          if (res.status === 404) {
+            Swal.fire({
+              icon:"error",
+              title:"Email already exists"
+          })
+          this.router.navigate(['/user-profile'])
+          }
+          else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Update Successful',
+              showConfirmButton: false,
+              timer: 1500,
+              
+            })
+            
+            this.router.navigate(['/list-address'])
+            
+          }
         },
         error:(err)=>{
+          
           throw err
+          
         }
       })
     }

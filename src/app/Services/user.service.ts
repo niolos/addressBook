@@ -55,8 +55,6 @@ export class UserService {
 
      tap(newUser =>{
        console.log(`This User = ${newUser}`);
-
-
        
      }),
      catchError(error => {
@@ -72,6 +70,23 @@ export class UserService {
     )
     
 
+  }
+  //Update User Profile
+  updateUser(id:string, user: any):Observable<IApiResponse<Users|null>>{
+    return this.http.patch<IApiResponse<Users|null>>(`${this.REST_API_URL}/users/${id}?platform=web`, user).pipe(
+      tap(updateUser=>{
+        console.log(`Updated Users = ${updateUser}` );
+      }),
+      // catchError(error => of(new Users()))
+      catchError(error => {
+      console.log(error);
+      return of({
+        status: error.status,
+        message: error.error.message,
+        data: error,
+        error: error.error.message,
+      })})
+    )
   }
   
   uploadPic(file:File):Observable<any> {
@@ -123,14 +138,6 @@ getImageBase64(user: string): Promise<string> {
     )
   }
 
-  updateUser(id:string, user: any):Observable<Users>{
-    return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user).pipe(
-      tap(updateUser=>{
-        console.log(`Updated Users = ${updateUser}`);
-      }),
-      catchError(error => of(new Users()))
-    )
-  }
   // updateUser(id:string, user:Users):Observable<Users>{
   //   return this.http.patch<Users>(`${this.REST_API_URL}/users/${id}?platform=web`, user, this.HTTP_HEADER).pipe(
   //     tap(updateUser=>{
@@ -146,6 +153,7 @@ getImageBase64(user: string): Promise<string> {
         console.log(`deleted User = ${deleteUsers.first_name}`);
       }),
       catchError(error=> of(new Users()))
+
     )
   }
 
@@ -158,6 +166,8 @@ getImageBase64(user: string): Promise<string> {
     }
   }
  
+//Service for SIDE NAV and User profile.
+
 
 
 }
