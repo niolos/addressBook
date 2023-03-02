@@ -359,7 +359,7 @@ export class RegistrationFormComponent implements OnInit {
         
          this.newUser.patchValue({ profile_image: this.selectedPic });
   
-        //  this.profilePicValidator(this.selectedPic)
+    //  this.profilePicValidator(this.selectedPic)
 
 
       };
