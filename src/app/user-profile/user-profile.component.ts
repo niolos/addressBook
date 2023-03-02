@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -9,16 +9,22 @@ import { UserService } from '../Services/user.service';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  styleUrls: ['./user-profile.component.css'],
+  // declarations: [SideNavComponent]
 })
 export class UserProfileComponent {
 
-  constructor(private router: Router, private route:ActivatedRoute, private userService: UserService) { }
+  constructor(
+    private router: Router, 
+    private route:ActivatedRoute, 
+    private userService: UserService,
+     ) { }
 
   getUser!: Users
   updateUser!: FormGroup
-  userImage:String=""
+  userImage:any = ""
   selectedPic:String=""
+  defaultImage:String="../../assets/FrontEnd Pictures/Profilelogo.png"
 
 
   updateUserDetails(){
@@ -107,9 +113,11 @@ export class UserProfileComponent {
         profile_image: new FormControl('',(Validators.required)),
 
       })
-
-      this.userImage="http://localhost:5000/"+resp.data.profile_image;
-      console.log(this.userImage, "NEW IMAGE");
+      
+      
+      this.userImage = sessionStorage.getItem("userImage");
+    
+      
       
      
     })
@@ -135,3 +143,4 @@ export class UserProfileComponent {
   }
   
 }
+

@@ -49,6 +49,7 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
     RecaptchaFormsModule,
     GoogleMapsModule
   ],
+  exports: [SideNavComponent],
   providers: [
     AuthenticationService,
     {

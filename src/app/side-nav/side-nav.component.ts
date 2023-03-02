@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Users } from '../Models/users';
 import { UserService } from '../Services/user.service';
 import Swal from 'sweetalert2'
@@ -15,7 +15,7 @@ export class SideNavComponent implements OnInit {
   constructor(private userService: UserService, private router:Router ) { }
 
   user!:Users
-  userImage:String=""
+  userImage:string=""
 
   ngOnInit(): void {
     this.getUser()
@@ -28,9 +28,27 @@ export class SideNavComponent implements OnInit {
       this.user = resp.data
       console.log(this.user)
       this.userImage="http://localhost:5000/"+resp.data.profile_image
+      this.choice(resp);
+
     })
   }
+   
 
+choice (resp:any) {
+
+  if (this.userImage === "http://localhost:5000/undefined") {
+    this.userImage = "../../assets/FrontEnd Pictures/Profilelogo.png"; 
+    console.log(this.userImage, "DEFAULT IMAGE");
+    sessionStorage.setItem("userImage", this.userImage);
+  }
+  else  {
+
+    this.userImage="http://localhost:5000/"+resp.data.profile_image;
+      console.log(this.userImage, "NEW IMAGE");
+      sessionStorage.setItem("userImage", this.userImage);
+
+  }
+}
   onLogOut() {
     Swal.fire({
       icon: 'success',

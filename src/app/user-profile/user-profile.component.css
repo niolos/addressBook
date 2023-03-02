@@ -141,3 +141,9 @@ button:hover{
     background-position: right;
     cursor: pointer;
 }
+/* 
+.imgBackup:before {
+    content: ' ';
+        background-image: url('../../assets/FrontEnd Pictures/Profilelogo.png');
+    } */
+    

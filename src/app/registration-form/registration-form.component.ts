@@ -359,6 +359,7 @@ export class RegistrationFormComponent implements OnInit {
         console.log(this.selectedPic + " UPLOADING")
         
          this.newUser.patchValue({ profile_image: this.selectedPic });
+  
         //  this.profilePicValidator(this.selectedPic)
 
 
