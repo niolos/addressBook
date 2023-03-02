@@ -23,7 +23,6 @@ import {
   asyncValidatorFn,
   passwordMatchValidator2,
 } from '../Services/asyncronous-validator.service';
-import { kMaxLength } from 'buffer';
 
 @Component({
   selector: 'app-registration-form',
