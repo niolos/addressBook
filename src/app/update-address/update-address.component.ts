@@ -12,7 +12,7 @@ import { AddressService } from '../Services/address.service';
   templateUrl: './update-address.component.html',
   styleUrls: ['./update-address.component.css']
 })
-export class UpdateAddressComponent {
+export class UpdateAddressComponent implements OnInit {
 
   constructor(private router: Router, private parishService: ParishesService, private addressService:AddressService) { }
   
@@ -27,9 +27,8 @@ export class UpdateAddressComponent {
   })
 
   parishes!:Parish[]
-  updateUser!: FormGroup
   getAddress!: Address
-
+  errorRes:any;
   editAddress(){
     if(this.updateAddress.controls['address_1'].hasError('required')||this.updateAddress.controls['address_2'].hasError('required')||this.updateAddress.controls['city'].hasError('required')||this.updateAddress.controls['parish'].hasError('required')){
       Swal.fire({
@@ -40,15 +39,29 @@ export class UpdateAddressComponent {
     }else{
       let id = sessionStorage.getItem('addressId')
       if(id){
+        console.log("this is the details",this.updateAddress.value);
+        // let indexParish = this.parishes.filter(parish => parish.parishName == this.updateAddress.value.parish)[0]
+        
+        // // this.updateAddress.value.parish = indexParish._id;
+        // this.updateAddress.controls['parish'].setValue(indexParish._id);
+      
+        
       this.addressService.updateAddress(id, this.updateAddress.value as any).subscribe({
         next:(res)=>{
-          Swal.fire({
-            icon: 'success',
-            title: 'Update Successful',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.router.navigate(['/list-address'])
+         this.errorRes = res.error;
+        console.log(res, "LOL")
+        if (res.status === 201 || res.status === 200) {
+
+          
+        }
+        Swal.fire({
+          icon: 'success',
+          title: "Update Successful",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate(['/list-address'])
+
         },
         error:(err)=>{
           alert(err)
@@ -56,7 +69,13 @@ export class UpdateAddressComponent {
       })
       console.log('subscriber info retrieved')
       }else{
-        this.router.navigate(['list-address'])
+        Swal.fire({
+          icon: 'error',
+          title: this.errorRes +" Update failed",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate(['/UNKNOWN ERROR'])
       }
     }
   }
@@ -68,24 +87,36 @@ export class UpdateAddressComponent {
     })
   }
 
+getAddrressById(){
+  
+  let id =sessionStorage.getItem('addressId')
+  
+  if(id){
+    this.addressService.getAddressbyId(id).subscribe(resp=>{
+
+      this.getAddress =resp.data
+      this.updateAddress =new FormGroup({
+        address_1: new FormControl(resp.data.address_1,(Validators.required)),
+        address_2: new FormControl(resp.data.address_2,(Validators.required)),
+        city: new FormControl(resp.data.city,(Validators.required)),
+        parish: new FormControl(resp.data.parish,(Validators.required)),
+        user_id:new FormControl(resp.data.user_id)
+      })
+      let indexParish = this.parishes.filter(parish => parish.parishName == this.updateAddress.value.parish)[0]
+
+        
+      // this.updateAddress.value.parish = indexParish._id;
+      this.updateAddress.controls['parish'].setValue(indexParish._id);
+    })
+  }
+}
 
 
   ngOnInit(): void {
+    console.log(sessionStorage)
+  
     this.getAllParishes()
-    let id =sessionStorage.getItem('addressId')
-    if(id){
-      this.addressService.getAddressbyId(id).subscribe(resp=>{
-        this.getAddress =resp.data
-        console.log("this address",this.getAddress)
-        this.updateAddress =new FormGroup({
-          address_1: new FormControl(resp.data.address_1,(Validators.required)),
-          address_2: new FormControl(resp.data.address_2,(Validators.required)),
-          city: new FormControl(resp.data.city,(Validators.required)),
-          parish: new FormControl(resp.data.parish,(Validators.required)),
-          user_id:new FormControl(resp.data.user_id)
-        })
-    })
-  }
+    this.getAddrressById()
     this.initAutocomplete()
   }
 

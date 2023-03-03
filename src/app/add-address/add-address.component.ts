@@ -42,6 +42,11 @@ export class AddAddressComponent implements OnInit {
     }else{
       this.addressService.createNewAddress(formInput).subscribe({
         next:(res)=>{
+          if (res.status === 201 || res.status ===200) {
+
+            
+          }
+
           console.log("response",res)
           Swal.fire({
             title:"Address successfully created",

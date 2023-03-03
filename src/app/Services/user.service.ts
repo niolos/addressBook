@@ -61,9 +61,9 @@ export class UserService {
       console.log(error);
       return of({
       status: error.status,
-      message: error.error.message,
+      message: error.error,
       data: null,
-      error: error.error.message,
+      error: error.error.error,
       
      })})
       
