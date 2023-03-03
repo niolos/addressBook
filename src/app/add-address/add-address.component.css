@@ -39,6 +39,8 @@
 
 .content select{
     color:rgb(128, 128, 128);
+    padding:9px 20px;
+
 }
 
 .buttonCon{
@@ -105,3 +107,4 @@ button:hover{
     width:50%;
     height:40%;
 }
+

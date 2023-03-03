@@ -63,6 +63,7 @@ export class AddAddressComponent implements OnInit {
       
         switch (componentType) {
           case "street_number": {
+            console.log(component)
             address_line1 = `${component.long_name} `;
             break;
           }

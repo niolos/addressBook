@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -6,6 +6,7 @@ import { ParishesService } from '../Services/parishes.service';
 import { Parish } from '../Models/parish';
 import { Address } from '../Models/address';
 import { AddressService } from '../Services/address.service';
+import { MapInterface } from '../Models/map.interface';
 
 @Component({
   selector: 'app-update-address',
@@ -14,7 +15,14 @@ import { AddressService } from '../Services/address.service';
 })
 export class UpdateAddressComponent {
 
-  constructor(private router: Router, private parishService: ParishesService, private addressService:AddressService) { }
+
+  @ViewChild('inputField')
+  inputField!: ElementRef;
+  
+
+  @Output() placeChanged = new EventEmitter<MapInterface>();
+
+  constructor(private router: Router, private parishService: ParishesService, private addressService:AddressService, private ngZone:NgZone) { }
   
 
 
@@ -30,6 +38,71 @@ export class UpdateAddressComponent {
   updateUser!: FormGroup
   getAddress!: Address
   parish: string | undefined
+  fromValue: MapInterface | undefined
+  toValue: MapInterface | undefined
+  autocomplete: google.maps.places.Autocomplete|undefined
+
+
+  ngAfterViewInit(){
+    let address_line1:string|null
+    let city:string|null
+
+    var options = {
+      componentRestrictions: {country: "jm"}
+     };
+
+     this.autocomplete= new google.maps.places.Autocomplete(this.inputField.nativeElement, options)
+
+    this.autocomplete.addListener('place_changed', ()=>{
+      const place = this.autocomplete?.getPlace();
+      const result : MapInterface={
+        address: this.inputField.nativeElement.value,
+        location: place?.geometry?.location,
+        iconUrl: place?.icon,
+      }
+
+      //this updates the map after the place changes with the from value from the html 
+      this.fromValue = result
+
+
+      console.log(place?.address_components);
+      // console.log(result.address.split(', ')[0]);
+      // // this.testAddress1= result.address.split(', ')[1];
+
+
+      console.log("results info",result);
+
+
+
+      for (const component of place?.address_components as google.maps.GeocoderAddressComponent[]) {
+        const componentType = component.types[0];
+      
+        switch (componentType) {
+          case "street_number": {
+            address_line1 = `${component.long_name} `;
+            break;
+          }
+    
+          case "route": {
+            address_line1 += component.short_name;
+            break;
+          }
+    
+          case "locality":{
+            city =`${component.long_name}`
+          }
+        }
+      }
+      this.updateAddress.controls['address_1'].setValue(address_line1)
+      this.updateAddress.controls['city'].setValue(city)
+      
+      this.ngZone.run(()=>{
+        this.placeChanged.emit(result)
+      })
+    })
+  }
+
+  
 
   editAddress(){
     if(this.updateAddress.controls['address_1'].hasError('required')||this.updateAddress.controls['address_2'].hasError('required')||this.updateAddress.controls['city'].hasError('required')||this.updateAddress.controls['parish'].hasError('required')){
