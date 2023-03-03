@@ -23,6 +23,7 @@ import {
   asyncValidatorFn,
   passwordMatchValidator2,
 } from '../Services/asyncronous-validator.service';
+import { IApiResponse } from '../Models/apiResponse.interface';
 
 @Component({
   selector: 'app-registration-form',
@@ -251,22 +252,26 @@ export class RegistrationFormComponent implements OnInit {
         // this.createNewUser(this.newUser.value, ).subscribe((data: any) => { console.log(this.newUser.value);
 
 
-        .subscribe((data: any) => {
+        .subscribe((data: IApiResponse<Users|null>) => {
 
 
           if (data.status === 404) {
 
             Swal.fire({
               icon: 'error',
-              title: 'Email already exists',
+              title: data.error,
+              
+              
+
 
               showConfirmButton: false,
               timer: 1500,
             });
 
           }
-          else {
-
+          else  if (data.status === 200) {
+        
+            
             console.log(this.newUser.get('profile_image').value + "  " + this.newUser.get('profile_image').file)
 
 

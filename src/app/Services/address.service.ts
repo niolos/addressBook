@@ -9,9 +9,11 @@ import { IApiResponse } from '../Models/apiResponse.interface';
 
 @Injectable({
   providedIn: 'root'
+
 })
 export class AddressService {
-
+  decodedToken:any
+  dectoken:string=""
   private REST_API_URL = environment.API_URL+'/api/v1/common'
   private USERS_API = environment.API_URL+'/api/v1/web/users'
 
@@ -60,6 +62,7 @@ export class AddressService {
   }
 
   getAddressbyId(id: string):Observable<IApiResponse<Address| any>>{
+    
     return this.http.get<IApiResponse<Address>>(`${this.REST_API_URL}/addresses/${id}?platform=web`).pipe(
       tap(address=>{
         console.log(`Found address = ${address}`)
@@ -77,12 +80,31 @@ export class AddressService {
       )
   }
 
-  updateAddress(id:string, address:Partial<Address>):Observable<Address>{
-    return this.http.put<Address>(`${this.REST_API_URL}/addresses/${id}`, address, this.HTTP_HEADER).pipe(
-      tap(updateAddress=>{
+  updateAddress(id:string, address:Partial<Address>):Observable<IApiResponse<Address | null>>{
+    console.log(address, "ADDRESS FOR THIS!!!")
+    let token:string|null= localStorage.getItem("token")
+    if(token){
+      this.decodedToken=JSON.parse(atob(token.split(".")[1]))
+      console.log("decoded token",this.decodedToken)
+    }
+    address.user_id = this.decodedToken.id;
+   
+    
+    
+    return this.http.put<IApiResponse<Address>>(`${this.REST_API_URL}/addresses/${id}?platform=web`, address, this.HTTP_HEADER).pipe(
+      tap(updateAddress=>{ 
         console.log(`Updated Address = ${updateAddress}`);
       }),
-      catchError(error => of(new Address()))
+      // catchError(error => of(new Address()))
+      catchError(error => {
+        console.log(error);
+        return of({
+        status: error.status,
+        message: error.error.message,
+        data: null,
+        error: error.error.error,
+        
+       })}),
     )
   }
 

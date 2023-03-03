@@ -46,7 +46,7 @@ public check: boolean=false;
     if(this.userLogin.valid){
     this.authService.checkLogin(this.userLogin.value).subscribe({
       next:(res)=>{
-        if(res.status===200){
+        if(res.status === 201 || res.status === 200){
           localStorage.setItem('token', res['data']['token'])
           this.router.navigate(['/list-address'])
           Swal.fire({

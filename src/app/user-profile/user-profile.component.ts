@@ -94,11 +94,12 @@ export class UserProfileComponent {
           if (res.status === 404) {
             Swal.fire({
               icon:"error",
-              title:"Email already exists"
+              title:res.error
           })
           this.router.navigate(['/user-profile'])
           }
-          else {
+          else  if (res.status === 201 || res.status === 200) {
+
             Swal.fire({
               icon: 'success',
               title: 'Update Successful',
