@@ -20,6 +20,7 @@ import { InterceptInterceptor } from './Services/intercept.interceptor';
 import { AuthenticationService } from './Services/authentication.service';
 import { UpdateAddressComponent } from './update-address/update-address.component';
 import { ErrorpageComponent } from './errorpage/errorpage.component';
+import { MapDisplayComponent } from './map-display/map-display.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ErrorpageComponent } from './errorpage/errorpage.component';
     FooterComponent,
     UpdateAddressComponent,
     ErrorpageComponent,
+    MapDisplayComponent,
     
   ],
   imports: [

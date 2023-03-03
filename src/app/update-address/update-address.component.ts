@@ -29,6 +29,7 @@ export class UpdateAddressComponent {
   parishes!:Parish[]
   updateUser!: FormGroup
   getAddress!: Address
+  parish: string | undefined
 
   editAddress(){
     if(this.updateAddress.controls['address_1'].hasError('required')||this.updateAddress.controls['address_2'].hasError('required')||this.updateAddress.controls['city'].hasError('required')||this.updateAddress.controls['parish'].hasError('required')){
@@ -84,8 +85,10 @@ export class UpdateAddressComponent {
           parish: new FormControl(resp.data.parish,(Validators.required)),
           user_id:new FormControl(resp.data.user_id)
         })
+        this.parish = resp.data.parish
     })
   }
+  
     this.initAutocomplete()
   }
 

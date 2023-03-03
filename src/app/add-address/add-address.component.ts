@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, NgZone } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
@@ -7,6 +7,7 @@ import { Parish } from '../Models/parish';
 import { AddressService } from '../Services/address.service';
 import { Address } from '../Models/address';
 import { UserService } from '../Services/user.service';
+import { MapInterface } from '../Models/map.interface';
 
 @Component({
   selector: 'app-add-address',
@@ -15,10 +16,79 @@ import { UserService } from '../Services/user.service';
 })
 export class AddAddressComponent implements OnInit {
 
+  @ViewChild('inputField')
+  inputField!: ElementRef;
+  
+  @Output() placeChanged = new EventEmitter<MapInterface>();
+
   parishes!:Parish[]
+  fromValue: MapInterface | undefined
+  toValue: MapInterface | undefined
+  autocomplete: google.maps.places.Autocomplete|undefined
+
+
+  ngAfterViewInit(){
+    let address_line1:string|null
+    let city:string|null
+
+    var options = {
+      componentRestrictions: {country: "jm"}
+     };
+
+     this.autocomplete= new google.maps.places.Autocomplete(this.inputField.nativeElement, options)
+
+    this.autocomplete.addListener('place_changed', ()=>{
+      const place = this.autocomplete?.getPlace();
+      const result : MapInterface={
+        address: this.inputField.nativeElement.value,
+        location: place?.geometry?.location,
+        iconUrl: place?.icon,
+      }
+
+      //this updates the map after the place changes with the from value from the html 
+      this.fromValue = result
+
+
+      console.log(place?.address_components);
+      // console.log(result.address.split(', ')[0]);
+      // // this.testAddress1= result.address.split(', ')[1];
+
+
+      console.log("results info",result);
+
+
+
+      for (const component of place?.address_components as google.maps.GeocoderAddressComponent[]) {
+        const componentType = component.types[0];
+      
+        switch (componentType) {
+          case "street_number": {
+            address_line1 = `${component.long_name} `;
+            break;
+          }
+    
+          case "route": {
+            address_line1 += component.short_name;
+            break;
+          }
+    
+          case "locality":{
+            city =`${component.long_name}`
+          }
+        }
+      }
+      this.createAddress.controls['address_1'].setValue(address_line1)
+      this.createAddress.controls['city'].setValue(city)
+      
+      this.ngZone.run(()=>{
+        this.placeChanged.emit(result)
+      })
+    })
+  }
+  
   userId=this.userService.getProfile
 
-  constructor(private router: Router, private parishService:ParishesService, private addressService: AddressService, private userService:UserService) { }
+  constructor(private router: Router, private parishService:ParishesService, private addressService: AddressService, private userService:UserService, private ngZone:NgZone) { }
 
 
   createAddress = new FormGroup({
@@ -76,106 +146,10 @@ export class AddAddressComponent implements OnInit {
       user_id: new FormControl(this.userService.decodedToken.id)
 
     })
-    // if(!navigator.geolocation){
-    //   console.log("location is not supported");
-    // }
-    // navigator.geolocation.getCurrentPosition((position)=>{
-    //   console.log(`latitude ${position.coords.latitude}, longitude ${position.coords.longitude}`)
-      
-    // })
+ } 
 
-    this.initAutocomplete()
-
+  changeLocation(event:any){
+    console.log("the event passed",event);
     
-  }
-
-  initAutocomplete(){
-    const map= new google.maps.Map(
-      document.getElementById("map") as HTMLElement,
-      {
-        center:{lat: 18.00495, lng:-76.77971},
-        zoom:18,
-        mapTypeId:"roadmap"
-      }
-    );
-    const search_input = document.getElementById("address") as HTMLInputElement;
-    const searchBox = new google.maps.places.SearchBox(search_input);
-    
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(search_input);
-
-    map.addListener("bounds_change",()=>{
-      searchBox.setBounds(map.getBounds() as google.maps.LatLngBounds)
-    });
-
-    let markers: google.maps.Marker[] = [];
-
-    searchBox.addListener("places_changed", ()=>{
-      const places = searchBox.getPlaces();
-      if(places?.length == 0){
-        return;
-      }
-      markers.forEach((marker)=>{
-        marker.setMap(null);
-      });
-      markers=[];
-      const bounds = new google.maps.LatLngBounds();
-
-      places?.forEach((place)=>{
-        if(!place.geometry || !place.geometry.location){
-          console.log("returned place does not contain geometry")
-          return;
-        }
-
-        const icon = {
-          url: place.icon as string,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25),
-        };
-  
-        markers.push(
-          new google.maps.Marker({
-            map,
-            icon,
-            title:place.name,
-            position:place.geometry.location,
-          })
-        );
-        if(place.geometry.viewport){
-          bounds.union(place.geometry.viewport);
-        }
-        else{
-          bounds.extend(place.geometry.location);
-        }
-      });
-      map.fitBounds(bounds);
-    });
-  }
-  
-
-  
-
- 
-
-  
-  // display: any;
-  //   center: google.maps.LatLngLiteral = {
-  //       lat: 18.00495, 
-  //       lng: -76.77971
-  //   };
-  //   zoom = 18;
-  //   moveMap(event: google.maps.MapMouseEvent) {
-  //       if (event.latLng != null) this.center = (event.latLng.toJSON());
-  //   }
-  //   move(event: google.maps.MapMouseEvent) {
-  //       if (event.latLng != null) this.display = event.latLng.toJSON();
-  //   }
-
-  
-}
-declare global {
-  interface Window {
-    initAutocomplete: () => void;
   }
 }
