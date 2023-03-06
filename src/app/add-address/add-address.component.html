@@ -1,11 +1,11 @@
 <div class="main">
     <app-side-nav></app-side-nav>
-    <form class="content" [formGroup]="createAddress">
+    <form class="content" [formGroup]="createAddress" (keydown.enter)="$event.preventDefault()">
         <h1>Add Address</h1>
         <div class="addressLine">
             <div class="address">
                 <h2>Address Line 1</h2>
-                <input type="text" placeholder="Address 1" formControlName="address_1" required id="address">
+                <input type="text" placeholder="Address 1" formControlName="address_1" required #inputField>
             </div>
             <div class="address">
                 <h2>Address Line 2</h2>
@@ -19,7 +19,7 @@
         <input type="text" formControlName="user_id" required hidden>
         <div class="parishes"></div>
         <h2>Parish</h2>
-        <select formControlName="parish" required>
+        <select formControlName="parish" required class="parish">
             <option value="" disabled selected>-- Default --</option>
             <option *ngFor="let par of parishes" [value]="par._id">{{par.parishName}}</option>
         </select>
@@ -32,7 +32,7 @@
             (mapMousemove)="move($event)">
         </google-map>
         </div> -->
-        <div class="mapTest" id="map"></div>
+        <app-map-display [from]="fromValue"></app-map-display>
         <div class="buttonCon">
             <button type="submit" (click)="newAddress()"> Add</button>
         </div>
