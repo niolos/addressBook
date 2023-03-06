@@ -53,7 +53,7 @@ public check: boolean=false;
             title:"YOU HAVE SUCCESSFULLY LOGGED IN",
             icon:"success"
           })
-          console.log(localStorage.getItem('token'))
+          // console.log(localStorage.getItem('token'))
         }
     },error:err=>{
       Swal.fire({

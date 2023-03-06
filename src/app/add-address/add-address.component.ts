@@ -50,12 +50,12 @@ export class AddAddressComponent implements OnInit {
       this.fromValue = result
 
 
-      console.log(place?.address_components);
+      // console.log(place?.address_components);
       // console.log(result.address.split(', ')[0]);
       // // this.testAddress1= result.address.split(', ')[1];
 
 
-      console.log("results info",result);
+      // console.log("results info",result);
 
 
 
@@ -118,7 +118,7 @@ export class AddAddressComponent implements OnInit {
             
           }
 
-          console.log("response",res)
+          // console.log("response",res)
           Swal.fire({
             title:"Address successfully created",
             icon: 'success',
@@ -129,14 +129,14 @@ export class AddAddressComponent implements OnInit {
           throw err
         }
       })
-      console.log('address created')
+      // console.log('address created')
     }
   }
 
   getAllParishes(){
     this.parishService.getParishes().subscribe((getParishes)=>{
       this.parishes = getParishes.data
-      console.log("parishes",this.parishes)
+      // console.log("parishes",this.parishes)
     })
   }
 
@@ -155,7 +155,7 @@ export class AddAddressComponent implements OnInit {
  } 
 
   changeLocation(event:any){
-    console.log("the event passed",event);
+    // console.log("the event passed",event);
     
   }
 }

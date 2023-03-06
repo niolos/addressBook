@@ -34,7 +34,7 @@ export class UserService {
   getUser():Observable<Users[]>{
     return this.http.get<Users[]>(this.REST_API_URL,this.HTTP_HEADER).pipe(
       tap(users=>{
-        console.log(`Recieved Users =,  ${users}`)
+        // console.log(`Recieved Users =,  ${users}`)
       }),
       catchError(error => of([]))
     )
@@ -54,7 +54,7 @@ export class UserService {
     return this.http.post<IApiResponse<Users|null>>(`${this.REST_API_URL}/users?platform=web`, user).pipe(
 
      tap(newUser =>{
-       console.log(`This User = ${newUser}`);
+      //  console.log(`This User = ${newUser}`);
        
      }),
      catchError(error => {
@@ -119,7 +119,7 @@ getImageBase64(user: string): Promise<string> {
   makeRequest(user:Users):Observable<IApiResponse<Users>> {
     return this.http.post<IApiResponse<Users>>(`${this.REST_API_URL}/users?platform=web`, user, this.HTTP_HEADER).pipe(
       tap(newUser =>{
-        console.log(`This User = ${newUser}`);
+        // console.log(`This User = ${newUser}`);
       }),
       catchError(error => of())
 
@@ -132,7 +132,7 @@ getImageBase64(user: string): Promise<string> {
   getUserId(id: string):Observable<IApiResponse<Users>>{
     return this.http.get<IApiResponse<Users>>(`${this.REST_API_URL}/users/${id}?platform=web`).pipe(
       tap(user=>{
-        console.log(`Found User = ${user}`)
+        // console.log(`Found User = ${user}`)
       }),
       catchError(error=> of())
     )
@@ -150,7 +150,7 @@ getImageBase64(user: string): Promise<string> {
   deleteUsers(id:string){
     return this.http.delete<Users>(`${this.REST_API_URL}/delete/${id}`, this.HTTP_HEADER).pipe(
       tap(deleteUsers=>{
-        console.log(`deleted User = ${deleteUsers.first_name}`);
+        // console.log(`deleted User = ${deleteUsers.first_name}`);
       }),
       catchError(error=> of(new Users()))
 
@@ -162,7 +162,7 @@ getImageBase64(user: string): Promise<string> {
     let token:string|null= localStorage.getItem("token")
     if(token){
       this.decodedToken=JSON.parse(atob(token.split(".")[1]))
-      console.log("decoded token",this.decodedToken)
+      // console.log("decoded token",this.decodedToken)
     }
   }
  

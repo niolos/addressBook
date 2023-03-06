@@ -47,7 +47,7 @@ export class AddressService {
     console.log("address dets", address)
     return this.http.post<IApiResponse<Address|null>>(`${this.REST_API_URL}/addresses?platform=web`, address, this.HTTP_HEADER).pipe(
      tap(newAddress =>{
-       console.log(`This address = ${newAddress}`);
+      //  console.log(`This address = ${newAddress}`);
      }),
      catchError(error => of({
       status: error.status,
@@ -65,7 +65,7 @@ export class AddressService {
     
     return this.http.get<IApiResponse<Address>>(`${this.REST_API_URL}/addresses/${id}?platform=web`).pipe(
       tap(address=>{
-        console.log(`Found address = ${address}`)
+        // console.log(`Found address = ${address}`)
       }),
       catchError(error => {
         console.log(error);
@@ -85,7 +85,7 @@ export class AddressService {
     let token:string|null= localStorage.getItem("token")
     if(token){
       this.decodedToken=JSON.parse(atob(token.split(".")[1]))
-      console.log("decoded token",this.decodedToken)
+      // console.log("decoded token",this.decodedToken)
     }
     address.user_id = this.decodedToken.id;
    
@@ -93,7 +93,7 @@ export class AddressService {
     
     return this.http.put<IApiResponse<Address>>(`${this.REST_API_URL}/addresses/${id}?platform=web`, address, this.HTTP_HEADER).pipe(
       tap(updateAddress=>{ 
-        console.log(`Updated Address = ${updateAddress}`);
+        // console.log(`Updated Address = ${updateAddress}`);
       }),
       // catchError(error => of(new Address()))
       catchError(error => {
@@ -111,7 +111,7 @@ export class AddressService {
   deleteAddress(id:string){
     return this.http.delete<Address>(`${this.REST_API_URL}/addresses/${id}/destroy?platform=web`, this.HTTP_HEADER).pipe(
       tap(deleteAddress=>{
-        console.log(`deleted Address = ${deleteAddress.address_1}`);
+        // console.log(`deleted Address = ${deleteAddress.address_1}`);
       }),
       catchError(error=> of(new Address()))
     )
