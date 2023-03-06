@@ -130,8 +130,8 @@ export class UserProfileComponent {
         first_name: new FormControl(resp.data.first_name,(Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$'))),
         last_name: new FormControl(resp.data.last_name,(Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$'))),
         email: new FormControl(resp.data.email,(Validators.required, Validators.email)),
-        mobile_number: new FormControl(resp.data.mobile_number,(Validators.required, Validators.min(-999), Validators.max(9999999999999))),
-        home_number: new FormControl(resp.data.home_number,(Validators.required, Validators.min(-999), Validators.max(9999999999999))),
+        mobile_number: new FormControl(resp.data.mobile_number,(Validators.required, Validators.min(1), Validators.max(9999999999999))),
+        home_number: new FormControl(resp.data.home_number,(Validators.required, Validators.min(1), Validators.max(9999999999999))),
         profile_image: new FormControl('',(Validators.required)),
 
       })
