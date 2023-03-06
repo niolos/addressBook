@@ -30,6 +30,7 @@ export class AddAddressComponent implements OnInit {
   ngAfterViewInit(){
     let address_line1:string|null
     let city:string|null
+    let streetNumber:string=''
 
     var options = {
       componentRestrictions: {country: "jm"}
@@ -63,13 +64,12 @@ export class AddAddressComponent implements OnInit {
       
         switch (componentType) {
           case "street_number": {
-            console.log(component)
-            address_line1 = `${component.long_name} `;
+            streetNumber = `${component.long_name} `;
             break;
           }
     
           case "route": {
-            address_line1 += component.short_name;
+            address_line1 = `${component.short_name}`;
             break;
           }
     
@@ -78,7 +78,7 @@ export class AddAddressComponent implements OnInit {
           }
         }
       }
-      this.createAddress.controls['address_1'].setValue(address_line1)
+      this.createAddress.controls['address_1'].setValue(streetNumber + address_line1)
       this.createAddress.controls['city'].setValue(city)
       
       this.ngZone.run(()=>{

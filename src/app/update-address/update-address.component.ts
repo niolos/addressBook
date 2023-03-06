@@ -45,6 +45,8 @@ export class UpdateAddressComponent implements OnInit {
   ngAfterViewInit(){
     let address_line1:string|null
     let city:string|null
+    let streetNumber:string=''
+
 
     var options = {
       componentRestrictions: {country: "jm"}
@@ -78,12 +80,12 @@ export class UpdateAddressComponent implements OnInit {
       
         switch (componentType) {
           case "street_number": {
-            address_line1 = `${component.long_name} `;
+            streetNumber = `${component.long_name} `;
             break;
           }
     
           case "route": {
-            address_line1 += component.short_name;
+            address_line1 = `${component.short_name}`;
             break;
           }
     
@@ -92,7 +94,7 @@ export class UpdateAddressComponent implements OnInit {
           }
         }
       }
-      this.updateAddress.controls['address_1'].setValue(address_line1)
+      this.updateAddress.controls['address_1'].setValue(streetNumber + address_line1)
       this.updateAddress.controls['city'].setValue(city)
       
       this.ngZone.run(()=>{
