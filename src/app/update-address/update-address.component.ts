@@ -128,18 +128,16 @@ export class UpdateAddressComponent implements OnInit {
         next:(res)=>{
          this.errorRes = res.error;
         // console.log(res, "LOL")
-        if (res.status === 201 || res.status === 200) {
-
-          
-        }
-        Swal.fire({
-          icon: 'success',
-          title: "Update Successful",
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/list-address'])
-
+          if (res.status === 201 || res.status === 200) {
+            Swal.fire({
+              icon: 'success',
+              title: "Update Successful",
+              showConfirmButton: false,
+              timer: 1500
+            })
+            this.router.navigate(['/list-address'])
+    
+          }
         },
         error:(err)=>{
           alert(err)
