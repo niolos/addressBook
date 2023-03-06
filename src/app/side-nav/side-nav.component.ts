@@ -26,7 +26,7 @@ export class SideNavComponent implements OnInit {
     this.userService.getProfile()
     this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
       this.user = resp.data
-      console.log(this.user)
+      // console.log(this.user)
       this.userImage="http://localhost:5000/"+resp.data.profile_image
       this.choice(resp);
 
@@ -38,13 +38,13 @@ choice (resp:any) {
 
   if (this.userImage === "http://localhost:5000/undefined") {
     this.userImage = "../../assets/FrontEnd Pictures/Profilelogo.png"; 
-    console.log(this.userImage, "DEFAULT IMAGE");
+    // console.log(this.userImage, "DEFAULT IMAGE");
     sessionStorage.setItem("userImage", this.userImage);
   }
   else  {
 
     this.userImage="http://localhost:5000/"+resp.data.profile_image;
-      console.log(this.userImage, "NEW IMAGE");
+      // console.log(this.userImage, "NEW IMAGE");
       sessionStorage.setItem("userImage", this.userImage);
 
   }
@@ -60,7 +60,7 @@ choice (resp:any) {
     if(localStorage.getItem('token')) {
       localStorage.removeItem('token')
       this.router.navigate(['/'])
-      console.log("token" ,localStorage.getItem('token'))
+      // console.log("token" ,localStorage.getItem('token'))
     }
 
   }

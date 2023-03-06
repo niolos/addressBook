@@ -66,12 +66,12 @@ export class UpdateAddressComponent implements OnInit {
       this.fromValue = result
 
 
-      console.log(place?.address_components);
+      // console.log(place?.address_components);
       // console.log(result.address.split(', ')[0]);
       // // this.testAddress1= result.address.split(', ')[1];
 
 
-      console.log("results info",result);
+      // console.log("results info",result);
 
 
 
@@ -116,7 +116,7 @@ export class UpdateAddressComponent implements OnInit {
     }else{
       let id = sessionStorage.getItem('addressId')
       if(id){
-        console.log("this is the details",this.updateAddress.value);
+        // console.log("this is the details",this.updateAddress.value);
         // let indexParish = this.parishes.filter(parish => parish.parishName == this.updateAddress.value.parish)[0]
         
         // // this.updateAddress.value.parish = indexParish._id;
@@ -126,7 +126,7 @@ export class UpdateAddressComponent implements OnInit {
       this.addressService.updateAddress(id, this.updateAddress.value as any).subscribe({
         next:(res)=>{
          this.errorRes = res.error;
-        console.log(res, "LOL")
+        // console.log(res, "LOL")
         if (res.status === 201 || res.status === 200) {
 
           
@@ -144,7 +144,7 @@ export class UpdateAddressComponent implements OnInit {
           alert(err)
         }
       })
-      console.log('subscriber info retrieved')
+      // console.log('subscriber info retrieved')
       }else{
         Swal.fire({
           icon: 'error',
@@ -160,7 +160,7 @@ export class UpdateAddressComponent implements OnInit {
   getAllParishes(){
     this.parishService.getParishes().subscribe((getParishes)=>{
       this.parishes = getParishes.data
-      console.log("parishes",this.parishes)
+      // console.log("parishes",this.parishes)
     })
   }
 
@@ -190,14 +190,14 @@ getAddrressById(){
 
 
   ngOnInit(): void {
-    console.log(sessionStorage)
+    // console.log(sessionStorage)
   
     this.getAllParishes()
     let id =sessionStorage.getItem('addressId')
     if(id){
       this.addressService.getAddressbyId(id).subscribe(resp=>{
         this.getAddress =resp.data
-        console.log("this address",this.getAddress)
+        // console.log("this address",this.getAddress)
         this.updateAddress =new FormGroup({
           address_1: new FormControl(resp.data.address_1,(Validators.required)),
           address_2: new FormControl(resp.data.address_2,(Validators.required)),

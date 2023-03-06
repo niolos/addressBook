@@ -125,7 +125,7 @@ export class UserProfileComponent {
     this.userService.getProfile()
     this.userService.getUserId(this.userService.decodedToken.id).subscribe(resp=>{
       this.getUser = resp.data;
-      console.log("user info", this.getUser)
+      // console.log("user info", this.getUser)
       this.updateUser = new FormGroup({
         first_name: new FormControl(resp.data.first_name,(Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$'))),
         last_name: new FormControl(resp.data.last_name,(Validators.required, Validators.minLength(3), Validators.maxLength(36), Validators.pattern('^[a-zA-Z ]*$'))),

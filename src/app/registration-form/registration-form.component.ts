@@ -64,7 +64,7 @@ export class RegistrationFormComponent implements OnInit {
       {}
 
     );
-    console.log("IMAGE FOR USER " + this.newUser.profile_image)
+    // console.log("IMAGE FOR USER " + this.newUser.profile_image)
   }
 
   // this is to gather the passwords for the validation in the sweet alert
@@ -217,15 +217,15 @@ export class RegistrationFormComponent implements OnInit {
 
 
     else {
-      console.log('SUBMITED');
-      console.log(
-        'confirm password:' +
-        this.confirmPassword.value +
-        'password' +
-        this.password.value
+      // console.log('SUBMITED');
+      // console.log(
+      //   'confirm password:' +
+      //   this.confirmPassword.value +
+      //   'password' +
+      //   this.password.value
 
 
-      );
+      // );
 
       console.log("DATA DOT PROFILE IMAGE = " + this.profilePic);
 
@@ -243,7 +243,7 @@ export class RegistrationFormComponent implements OnInit {
 
 
 
-      console.log(this.newUser.value)
+      // console.log(this.newUser.value)
       this.userService
 
         .createNewUser(form)
@@ -272,7 +272,7 @@ export class RegistrationFormComponent implements OnInit {
           else  if (data.status === 200) {
         
             
-            console.log(this.newUser.get('profile_image').value + "  " + this.newUser.get('profile_image').file)
+            // console.log(this.newUser.get('profile_image').value + "  " + this.newUser.get('profile_image').file)
 
 
 
@@ -288,7 +288,7 @@ export class RegistrationFormComponent implements OnInit {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(this.newUser.value);
+            // console.log(this.newUser.value);
             this.router.navigate(['']);
 
           }
@@ -333,7 +333,7 @@ export class RegistrationFormComponent implements OnInit {
     //   return { 'invalidFileType': true };
     // }
     // if (file.size > 1000000000000000000) {
-      console.log(File, 'file size');
+      // console.log(File, 'file size');
     if (file.size > 1) {
       return { fileTooLarge: true };
     }
@@ -346,7 +346,7 @@ export class RegistrationFormComponent implements OnInit {
   userImage = '../../assets/FrontEnd Pictures/Profilelogo.png';
 
   onselectFile(event: any) {
-    console.log(event)
+    // console.log(event)
     if (event.target.files) {
       this.selectedPic = event.target.files[0];
 
@@ -358,9 +358,9 @@ export class RegistrationFormComponent implements OnInit {
       check.readAsDataURL(event.target.files[0]);
       check.onload = (change: any) => {
         this.userImage = change.target.result;
-        console.log(this.selectedPic + " SELECTED PIC")
+        // console.log(this.selectedPic + " SELECTED PIC")
         // this.uploadFile(this.selectedPic);
-        console.log(this.selectedPic + " UPLOADING")
+        // console.log(this.selectedPic + " UPLOADING")
         
          this.newUser.patchValue({ profile_image: this.selectedPic });
   
