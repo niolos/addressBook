@@ -29,7 +29,7 @@ export class AddAddressComponent implements OnInit {
 
   ngAfterViewInit(){
     let address_line1:string=''
-    let city:string|null
+    let city:string=''
     let streetNumber:string=''
 
     var options = {
@@ -69,7 +69,7 @@ export class AddAddressComponent implements OnInit {
           }
     
           case "route": {
-            address_line1 = `${component.long_name}`;
+            address_line1 = `${component.short_name}`;
             break;
           }
     
