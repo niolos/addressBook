@@ -41,11 +41,12 @@ export class UpdateAddressComponent implements OnInit {
   toValue: MapInterface | undefined
   autocomplete: google.maps.places.Autocomplete|undefined
 
+  streetNumber:string=''
+  address_line1:string=''
+  city:string|null
 
   ngAfterViewInit(){
-    let address_line1:string|null
-    let city:string|null
-    let streetNumber:string=''
+
 
 
     var options = {
@@ -75,27 +76,27 @@ export class UpdateAddressComponent implements OnInit {
 
 
 
-      for (const component of place?.address_components as google.maps.GeocoderAddressComponent[]) {
-        const componentType = component.types[0];
+      for (let component of place?.address_components as google.maps.GeocoderAddressComponent[]) {
+        let componentType = component.types[0];
       
         switch (componentType) {
           case "street_number": {
-            streetNumber = `${component.long_name} `;
+            this.streetNumber = `${component.long_name} `;
             break;
           }
     
           case "route": {
-            address_line1 = `${component.short_name}`;
+            this.address_line1 = `${component.short_name}`;
             break;
           }
     
           case "locality":{
-            city =`${component.long_name}`
+            this.city =`${component.long_name}`
           }
         }
       }
-      this.updateAddress.controls['address_1'].setValue(streetNumber + address_line1)
-      this.updateAddress.controls['city'].setValue(city)
+      this.updateAddress.controls['address_1'].setValue(this.streetNumber + this.address_line1)
+      this.updateAddress.controls['city'].setValue(this.city)
       
       this.ngZone.run(()=>{
         this.placeChanged.emit(result)
