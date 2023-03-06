@@ -28,8 +28,8 @@ export class AddAddressComponent implements OnInit {
 
 
   ngAfterViewInit(){
-    let address_line1:string|null
-    let city:string|null
+    let address_line1:string=''
+    let city:string=''
     let streetNumber:string=''
 
     var options = {
